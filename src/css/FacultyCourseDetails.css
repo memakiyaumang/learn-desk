@@ -1,0 +1,496 @@
+/* =========================================
+   FACULTY COURSE DETAILS
+========================================= */
+
+.faculty-course-details-page {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+.faculty-course-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 38px;
+  padding: 0 13px;
+  margin-bottom: 18px;
+  border: 1px solid #e1e5ed;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #596376;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.faculty-course-back-btn:hover {
+  color: #6d3df5;
+  border-color: #cfc7f3;
+  background: #faf9ff;
+}
+
+/* =========================================
+   HERO
+========================================= */
+
+.faculty-course-details-hero {
+  display: grid;
+  grid-template-columns: 330px minmax(0, 1fr);
+  gap: 26px;
+  background: #ffffff;
+  border: 1px solid #e8ebf1;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(30, 41, 59, 0.035);
+  margin-bottom: 20px;
+}
+
+.faculty-course-details-image {
+  width: 100%;
+  height: 225px;
+  border-radius: 11px;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    #f1edff,
+    #e7e0ff
+  );
+  color: #6d3df5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.faculty-course-details-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.faculty-course-details-hero-content {
+  min-width: 0;
+  padding: 4px 5px;
+}
+
+.faculty-course-details-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.faculty-course-details-category {
+  color: #6d3df5;
+  font-size: 11px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.faculty-course-details-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.faculty-detail-status-published {
+  background: #e6f7ed;
+  color: #13884e;
+}
+
+.faculty-detail-status-pending {
+  background: #fff2dc;
+  color: #c2760c;
+}
+
+.faculty-detail-status-rejected {
+  background: #fde9e9;
+  color: #d33d3d;
+}
+
+.faculty-detail-status-draft {
+  background: #edf0f5;
+  color: #677185;
+}
+
+.faculty-course-details-hero-content h1 {
+  margin: 0;
+  color: #202a3d;
+  font-size: 28px;
+  line-height: 1.25;
+  font-weight: 750;
+  letter-spacing: -0.5px;
+}
+
+.faculty-course-details-hero-content > p {
+  margin: 12px 0 20px;
+  color: #788296;
+  font-size: 13px;
+  line-height: 1.7;
+  max-width: 650px;
+}
+
+.faculty-course-details-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  padding-top: 16px;
+  border-top: 1px solid #eef0f4;
+}
+
+.faculty-course-details-meta div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #687386;
+  font-size: 12px;
+  font-weight: 550;
+}
+
+.faculty-course-details-meta svg {
+  color: #6d3df5;
+}
+
+/* =========================================
+   INFORMATION SECTION
+========================================= */
+
+.faculty-course-info-section,
+.faculty-course-description-section,
+.faculty-course-actions-section {
+  background: #ffffff;
+  border: 1px solid #e8ebf1;
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(30, 41, 59, 0.03);
+}
+
+.faculty-course-info-header h2,
+.faculty-course-actions-header h2 {
+  margin: 0;
+  color: #202a3d;
+  font-size: 17px;
+  font-weight: 720;
+}
+
+.faculty-course-info-header p,
+.faculty-course-actions-header p {
+  margin: 5px 0 0;
+  color: #858e9e;
+  font-size: 12px;
+}
+
+/* =========================================
+   INFORMATION GRID
+========================================= */
+
+.faculty-course-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 17px;
+}
+
+.faculty-course-info-card {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 14px;
+  border: 1px solid #edf0f4;
+  border-radius: 10px;
+  background: #fcfcfd;
+}
+
+.faculty-course-info-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.faculty-course-info-icon.purple {
+  background: #f0ebff;
+  color: #6d3df5;
+}
+
+.faculty-course-info-icon.blue {
+  background: #eaf3ff;
+  color: #3c82df;
+}
+
+.faculty-course-info-icon.green {
+  background: #e9f8ef;
+  color: #16a05d;
+}
+
+.faculty-course-info-icon.orange {
+  background: #fff3df;
+  color: #e58a13;
+}
+
+.faculty-course-info-card span {
+  display: block;
+  margin-bottom: 4px;
+  color: #858e9e;
+  font-size: 10.5px;
+}
+
+.faculty-course-info-card strong {
+  display: block;
+  color: #283247;
+  font-size: 12.5px;
+  font-weight: 680;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.faculty-course-description-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #6d3df5;
+}
+
+.faculty-course-description-header h2 {
+  margin: 0;
+  color: #202a3d;
+  font-size: 17px;
+  font-weight: 720;
+}
+
+.faculty-course-description-header p {
+  margin: 4px 0 0;
+  color: #858e9e;
+  font-size: 11px;
+}
+
+.faculty-course-description-box {
+  margin-top: 16px;
+  padding: 15px;
+  border-radius: 9px;
+  background: #fafafe;
+  border: 1px solid #eeeef6;
+}
+
+.faculty-course-description-box p {
+  margin: 0;
+  color: #697387;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* =========================================
+   MANAGEMENT ACTIONS
+========================================= */
+
+.faculty-course-detail-actions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 17px;
+}
+
+.faculty-detail-action {
+  min-width: 0;
+  min-height: 76px;
+  padding: 13px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  text-align: left;
+  border-radius: 10px;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.faculty-detail-action:hover {
+  transform: translateY(-2px);
+}
+
+.faculty-detail-action > svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.faculty-detail-action span {
+  min-width: 0;
+}
+
+.faculty-detail-action strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.faculty-detail-action small {
+  display: block;
+  color: #7e8798;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.purple-action {
+  border: 1px solid #ddd6fb;
+  background: #f8f6ff;
+  color: #6d3df5;
+}
+
+.blue-action {
+  border: 1px solid #d7e7fb;
+  background: #f5f9ff;
+  color: #347bcf;
+}
+
+.green-action {
+  border: 1px solid #d5efdf;
+  background: #f4fbf6;
+  color: #159257;
+}
+
+.orange-action {
+  border: 1px solid #f5dfbf;
+  background: #fffaf2;
+  color: #d47d0d;
+}
+
+/* =========================================
+   NO COURSE
+========================================= */
+
+.faculty-course-not-found {
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #e8ebf1;
+  border-radius: 14px;
+  padding: 30px;
+}
+
+.faculty-course-not-found-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: #f0ebff;
+  color: #6d3df5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.faculty-course-not-found h2 {
+  margin: 0 0 7px;
+  color: #202a3d;
+  font-size: 19px;
+}
+
+.faculty-course-not-found p {
+  margin: 0 0 18px;
+  color: #858e9e;
+  font-size: 13px;
+}
+
+.faculty-course-not-found button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 38px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 8px;
+  background: #6d3df5;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1100px) {
+  .faculty-course-details-hero {
+    grid-template-columns: 280px minmax(0, 1fr);
+  }
+
+  .faculty-course-info-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .faculty-course-detail-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 750px) {
+  .faculty-course-details-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .faculty-course-details-image {
+    height: 210px;
+  }
+
+  .faculty-course-details-hero-content h1 {
+    font-size: 23px;
+  }
+
+  .faculty-course-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .faculty-course-detail-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .faculty-course-details-hero,
+  .faculty-course-info-section,
+  .faculty-course-description-section,
+  .faculty-course-actions-section {
+    padding: 14px;
+  }
+
+  .faculty-course-details-image {
+    height: 180px;
+  }
+
+  .faculty-course-details-top-row {
+    align-items: flex-start;
+  }
+
+  .faculty-course-details-meta {
+    gap: 10px;
+  }
+}

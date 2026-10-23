@@ -1,0 +1,832 @@
+/* ================================
+   Student Management Page
+================================ */
+
+.student-management {
+    width: 100%;
+    padding: 28px;
+    box-sizing: border-box;
+}
+
+
+/* ================================
+   Page Header
+================================ */
+
+.student-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.student-page-header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.student-page-header p {
+    margin: 7px 0 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+/* ================================
+   Summary Cards
+================================ */
+
+.student-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+.student-summary-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.summary-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: #eef2ff;
+    color: #4f46e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.pending-icon {
+    background: #fff7ed;
+    color: #f97316;
+}
+
+.approved-icon {
+    background: #ecfdf5;
+    color: #16a34a;
+}
+
+.rejected-icon {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.student-summary-card span {
+    display: block;
+    color: #6b7280;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.student-summary-card strong {
+    display: block;
+    color: #111827;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+
+/* ================================
+   Filter Bar
+================================ */
+
+.student-filter-bar {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.student-search {
+    width: 100%;
+    max-width: 420px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 0 14px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #6b7280;
+
+    box-sizing: border-box;
+}
+
+.student-search:focus-within {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.08);
+}
+
+.student-search input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+
+    font-size: 14px;
+    color: #1f2937;
+}
+
+.student-search input::placeholder {
+    color: #9ca3af;
+}
+
+.student-filter-bar select {
+    height: 44px;
+    min-width: 170px;
+
+    padding: 0 12px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+
+    background: #ffffff;
+    color: #374151;
+
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+}
+
+.student-filter-bar select:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.08);
+}
+
+
+/* ================================
+   Table Card
+================================ */
+
+.student-table-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.student-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.student-table-wrapper table {
+    width: 100%;
+    min-width: 850px;
+    border-collapse: collapse;
+}
+
+.student-table-wrapper thead {
+    background: #f9fafb;
+}
+
+.student-table-wrapper th {
+    padding: 15px 18px;
+    text-align: left;
+
+    font-size: 12px;
+    font-weight: 700;
+    color: #6b7280;
+
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.student-table-wrapper td {
+    padding: 16px 18px;
+
+    font-size: 14px;
+    color: #374151;
+
+    border-bottom: 1px solid #f0f1f3;
+    vertical-align: middle;
+}
+
+.student-table-wrapper tbody tr {
+    transition: background 0.2s ease;
+}
+
+.student-table-wrapper tbody tr:hover {
+    background: #fafbff;
+}
+
+.student-table-wrapper tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* ================================
+   Student Info
+================================ */
+
+.student-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.student-avatar {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eef2ff;
+    color: #4f46e5;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    flex-shrink: 0;
+}
+
+.student-info strong {
+    display: block;
+    color: #1f2937;
+    font-size: 14px;
+    font-weight: 600;
+
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.student-info span {
+    display: block;
+    margin-top: 3px;
+
+    color: #9ca3af;
+    font-size: 12px;
+}
+
+
+/* ================================
+   Student Email
+================================ */
+
+.student-email {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    color: #6b7280;
+    white-space: nowrap;
+}
+
+
+/* ================================
+   Status
+================================ */
+
+.student-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 5px 11px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-approved {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.status-pending {
+    background: #ffedd5;
+    color: #c2410c;
+}
+
+.status-rejected {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+
+/* ================================
+   Action Buttons
+================================ */
+
+.student-actions {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+
+.student-actions button {
+    min-height: 34px;
+
+    border: none;
+    border-radius: 7px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    padding: 6px 9px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.15s ease;
+}
+
+.student-actions button:hover {
+    transform: translateY(-1px);
+}
+
+
+/* View */
+
+.view-btn {
+    width: 34px;
+    padding: 0 !important;
+
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+.view-btn:hover {
+    background: #e0e7ff;
+}
+
+
+/* Edit */
+
+.edit-btn {
+    width: 34px;
+    padding: 0 !important;
+
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.edit-btn:hover {
+    background: #e5e7eb;
+}
+
+
+/* Approve */
+
+.approve-btn {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.approve-btn:hover {
+    background: #bbf7d0;
+}
+
+
+/* Reject */
+
+.reject-btn {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.reject-btn:hover {
+    background: #fecaca;
+}
+
+
+/* Delete */
+
+.delete-btn {
+    width: 34px;
+    padding: 0 !important;
+
+    background: #fff1f2;
+    color: #e11d48;
+}
+
+.delete-btn:hover {
+    background: #ffe4e6;
+}
+
+
+/* ================================
+   Empty State
+================================ */
+
+.no-students {
+    text-align: center !important;
+    padding: 50px 20px !important;
+
+    color: #9ca3af !important;
+    font-size: 14px !important;
+}
+
+
+/* ================================
+   Modal Overlay
+================================ */
+
+.student-modal-overlay {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(15, 23, 42, 0.55);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 9999;
+
+    box-sizing: border-box;
+}
+
+
+/* ================================
+   Modal
+================================ */
+
+.student-modal {
+    width: 100%;
+    max-width: 480px;
+
+    max-height: 90vh;
+    overflow-y: auto;
+
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.20);
+
+    animation: studentModalOpen 0.2s ease;
+}
+
+@keyframes studentModalOpen {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* ================================
+   Modal Header
+================================ */
+
+.student-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 20px 22px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.student-modal-header h2 {
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.modal-close-btn {
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #f3f4f6;
+    color: #6b7280;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.modal-close-btn:hover {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+
+/* ================================
+   Modal Body
+================================ */
+
+.student-modal-body {
+    padding: 24px 22px;
+}
+
+.modal-avatar {
+    width: 70px;
+    height: 70px;
+
+    margin: 0 auto 24px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eef2ff;
+    color: #4f46e5;
+
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.modal-field {
+    margin-bottom: 18px;
+}
+
+.modal-field:last-child {
+    margin-bottom: 0;
+}
+
+.modal-field label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #6b7280;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.modal-field p {
+    margin: 0;
+
+    padding: 11px 12px;
+
+    background: #f9fafb;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+
+    color: #1f2937;
+
+    font-size: 14px;
+
+    word-break: break-word;
+}
+
+.modal-field input {
+    width: 100%;
+    height: 42px;
+
+    padding: 0 12px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+
+    outline: none;
+
+    color: #1f2937;
+    background: #ffffff;
+
+    font-size: 14px;
+
+    transition: 0.2s ease;
+}
+
+.modal-field input:focus {
+    border-color: #4f46e5;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(79, 70, 229, 0.08);
+}
+
+
+/* ================================
+   Modal Footer
+================================ */
+
+.student-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+
+    padding: 18px 22px;
+
+    border-top: 1px solid #e5e7eb;
+}
+
+.student-modal-footer button {
+    min-height: 40px;
+
+    padding: 0 16px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.modal-cancel-btn {
+    border: 1px solid #d1d5db;
+
+    background: #ffffff;
+    color: #374151;
+}
+
+.modal-cancel-btn:hover {
+    background: #f9fafb;
+}
+
+.modal-save-btn {
+    border: 1px solid #4f46e5;
+
+    background: #4f46e5;
+    color: #ffffff;
+}
+
+.modal-save-btn:hover {
+    background: #4338ca;
+    border-color: #4338ca;
+}
+
+
+/* ================================
+   Responsive - Tablet
+================================ */
+
+@media (max-width: 1000px) {
+
+    .student-management {
+        padding: 22px;
+    }
+
+    .student-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* ================================
+   Responsive - Mobile
+================================ */
+
+@media (max-width: 650px) {
+
+    .student-management {
+        padding: 16px;
+    }
+
+    .student-page-header h1 {
+        font-size: 23px;
+    }
+
+    .student-page-header p {
+        font-size: 13px;
+    }
+
+    .student-summary {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .student-summary-card {
+        padding: 16px;
+    }
+
+    .student-filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .student-search {
+        max-width: none;
+    }
+
+    .student-filter-bar select {
+        width: 100%;
+    }
+
+    .student-modal-overlay {
+        padding: 12px;
+    }
+
+    .student-modal {
+        max-height: 94vh;
+        border-radius: 14px;
+    }
+
+    .student-modal-header {
+        padding: 17px;
+    }
+
+    .student-modal-body {
+        padding: 20px 17px;
+    }
+
+    .student-modal-footer {
+        padding: 15px 17px;
+    }
+
+}
+
+
+/* ================================
+   Small Mobile
+================================ */
+
+@media (max-width: 420px) {
+
+    .student-management {
+        padding: 12px;
+    }
+
+    .student-page-header h1 {
+        font-size: 21px;
+    }
+
+    .student-summary-card strong {
+        font-size: 21px;
+    }
+
+    .student-actions {
+        gap: 5px;
+    }
+
+    .student-actions button {
+        min-height: 32px;
+        font-size: 11px;
+    }
+
+    .student-modal-footer {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .student-modal-footer button {
+        width: 100%;
+    }
+
+}

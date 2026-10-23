@@ -1,0 +1,225 @@
+/* =====================================================
+   REGISTRATION PAGE
+===================================================== */
+
+.registration-container {
+    width: 100%;
+    padding: 30px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Registration Card */
+.registration-box {
+    background: #ffffff;
+    padding: 35px 35px;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(109, 61, 245, 0.10);
+    border: 1px solid rgba(232, 234, 242, 0.9);
+    width: 100%;
+    max-width: 450px;
+}
+
+/* Heading */
+.registration-box h2 {
+    text-align: center;
+    color: #172033;
+    margin-bottom: 28px;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+/* Input Group */
+.input-group {
+    margin-bottom: 20px;
+}
+
+/* Label */
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Input */
+.input-group input {
+    width: 100%;
+    padding: 13px 15px;
+    background-color: #f8faff;
+    border: 1px solid #e8eaf2;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #172033;
+    transition: all 0.3s ease;
+}
+
+/* Input Placeholder */
+.input-group input::placeholder {
+    color: #94a3b8;
+}
+
+/* Input Focus */
+.input-group input:focus {
+    background-color: #ffffff;
+    border-color: #8b5cf6;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(109, 61, 245, 0.08);
+}
+
+/* Select */
+.input-group select {
+    width: 100%;
+    padding: 13px 15px;
+    background-color: #f8faff;
+    border: 1px solid #e8eaf2;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #172033;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Select Focus */
+.input-group select:focus {
+    background-color: #ffffff;
+    border-color: #8b5cf6;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(109, 61, 245, 0.08);
+}
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.field-error {
+    margin-top: 6px;
+    color: #dc2626;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.input-group input.input-error,
+.input-group select.input-error {
+    border-color: #dc2626;
+    background-color: #fff7f7;
+}
+
+.input-group input.input-error:focus,
+.input-group select.input-error:focus {
+    border-color: #dc2626;
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.08);
+}
+
+/* =====================================================
+   SUCCESS MESSAGE
+===================================================== */
+
+.success-message {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #15803d;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 7px;
+    padding: 9px 12px;
+    font-size: 13px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+/* =====================================================
+   REGISTER BUTTON
+===================================================== */
+
+.register-btn {
+    width: 100%;
+    padding: 13px;
+
+    background: linear-gradient(
+        135deg,
+        #6d3df5,
+        #8b5cf6
+    );
+
+    color: white;
+    border: none;
+    border-radius: 8px;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 14px rgba(109, 61, 245, 0.22);
+
+    transition: all 0.3s ease;
+
+    margin-top: 8px;
+}
+
+.register-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(109, 61, 245, 0.35);
+}
+
+.register-btn:active {
+    transform: translateY(0);
+}
+
+/* =====================================================
+   LOGIN LINK
+===================================================== */
+
+.switch-form {
+    text-align: center;
+    margin-top: 22px;
+    margin-bottom: 8px;
+
+    font-size: 14px;
+    color: #64748b;
+}
+
+.login-link {
+    text-align: center;
+}
+
+.login-link a {
+    color: #6d3df5;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+
+    transition: color 0.2s ease;
+}
+
+.login-link a:hover {
+    color: #5b2fe0;
+    text-decoration: underline;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 500px) {
+
+    .registration-container {
+        padding: 20px 15px;
+    }
+
+    .registration-box {
+        padding: 28px 22px;
+        max-width: 100%;
+    }
+
+    .registration-box h2 {
+        font-size: 23px;
+        margin-bottom: 24px;
+    }
+
+}

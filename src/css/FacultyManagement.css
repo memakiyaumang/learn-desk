@@ -1,0 +1,865 @@
+/* =========================================================
+   FACULTY MANAGEMENT PAGE
+========================================================= */
+
+.faculty-management-page {
+    width: 100%;
+    min-height: 100%;
+    padding: 28px;
+    box-sizing: border-box;
+    background: #f8f7fc;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.faculty-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.faculty-page-header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1f1f2e;
+}
+
+.faculty-page-header p {
+    margin: 7px 0 0;
+    color: #77758a;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   SUCCESS / ERROR MESSAGE
+========================================================= */
+
+.success-message,
+.error-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px 16px;
+    border-radius: 10px;
+
+    margin-bottom: 18px;
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.success-message {
+    color: #16803c;
+    background: #ecfdf3;
+    border: 1px solid #bbf7d0;
+}
+
+.error-message {
+    color: #c62828;
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
+.faculty-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.summary-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    background: #ffffff;
+    border: 1px solid #eceaf3;
+    border-radius: 14px;
+
+    padding: 18px;
+
+    box-shadow: 0 3px 14px rgba(35, 24, 64, 0.04);
+}
+
+.summary-icon {
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: #f0ebff;
+    color: #6d3df5;
+
+    flex-shrink: 0;
+}
+
+.summary-card span {
+    display: block;
+    font-size: 13px;
+    color: #77758a;
+    margin-bottom: 4px;
+}
+
+.summary-card strong {
+    display: block;
+    font-size: 23px;
+    font-weight: 700;
+    color: #242331;
+}
+
+
+/* =========================================================
+   SEARCH + FILTER
+========================================================= */
+
+.faculty-filter-section {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    background: #ffffff;
+    border: 1px solid #eceaf3;
+    border-radius: 14px;
+
+    padding: 16px;
+    margin-bottom: 20px;
+
+    box-shadow: 0 3px 14px rgba(35, 24, 64, 0.04);
+}
+
+.faculty-search-box {
+    flex: 1;
+
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 0 14px;
+
+    border: 1px solid #dedbe8;
+    border-radius: 9px;
+
+    background: #ffffff;
+}
+
+.faculty-search-box svg {
+    color: #8a8798;
+    flex-shrink: 0;
+}
+
+.faculty-search-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+
+    font-size: 14px;
+    color: #2d2b38;
+    background: transparent;
+}
+
+.faculty-search-box input::placeholder {
+    color: #a09dac;
+}
+
+.faculty-status-filter {
+    width: 170px;
+    height: 44px;
+
+    padding: 0 12px;
+
+    border: 1px solid #dedbe8;
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    color: #34313f;
+    font-size: 14px;
+
+    outline: none;
+    cursor: pointer;
+}
+
+.faculty-status-filter:focus {
+    border-color: #6d3df5;
+}
+
+
+/* =========================================================
+   TABLE CARD
+========================================================= */
+
+.faculty-table-card {
+    width: 100%;
+
+    background: #ffffff;
+    border: 1px solid #eceaf3;
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow: 0 3px 14px rgba(35, 24, 64, 0.04);
+}
+
+.faculty-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.faculty-table {
+    width: 100%;
+    min-width: 850px;
+
+    border-collapse: collapse;
+}
+
+.faculty-table thead {
+    background: #faf9fd;
+}
+
+.faculty-table th {
+    padding: 15px 18px;
+
+    text-align: left;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    color: #716e80;
+
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+
+    border-bottom: 1px solid #eceaf3;
+}
+
+.faculty-table td {
+    padding: 16px 18px;
+
+    font-size: 14px;
+    color: #484552;
+
+    border-bottom: 1px solid #f0eef5;
+
+    vertical-align: middle;
+}
+
+.faculty-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.faculty-table tbody tr:hover {
+    background: #fcfbff;
+}
+
+
+/* =========================================================
+   FACULTY USER INFO
+========================================================= */
+
+.faculty-user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.faculty-avatar {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #eee8ff;
+    color: #633bea;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    flex-shrink: 0;
+}
+
+.faculty-user-info strong {
+    display: block;
+
+    color: #292735;
+    font-size: 14px;
+    font-weight: 600;
+
+    margin-bottom: 3px;
+}
+
+.faculty-user-info span {
+    display: block;
+
+    color: #8b8898;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   STATUS BADGES
+========================================================= */
+
+.faculty-status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 78px;
+
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-approved {
+    color: #16703a;
+    background: #eaf9f0;
+}
+
+.status-pending {
+    color: #a05a00;
+    background: #fff5df;
+}
+
+.status-rejected {
+    color: #b42318;
+    background: #fff0f0;
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.faculty-action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.edit-btn,
+.delete-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    height: 34px;
+
+    padding: 0 11px;
+
+    border-radius: 7px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.edit-btn {
+    color: #633bea;
+    background: #f1edff;
+    border: 1px solid #ded5ff;
+}
+
+.edit-btn:hover {
+    background: #e7e0ff;
+}
+
+.delete-btn {
+    color: #d93025;
+    background: #fff1f0;
+    border: 1px solid #ffd6d2;
+}
+
+.delete-btn:hover {
+    background: #ffe5e2;
+}
+
+.edit-btn:disabled,
+.delete-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   LOADING / EMPTY
+========================================================= */
+
+.faculty-loading,
+.faculty-empty {
+    min-height: 280px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    color: #858293;
+}
+
+.faculty-empty svg {
+    color: #aaa5b8;
+    margin-bottom: 10px;
+}
+
+.faculty-empty h3 {
+    margin: 0 0 6px;
+
+    font-size: 17px;
+    color: #373442;
+}
+
+.faculty-empty p {
+    margin: 0;
+
+    font-size: 13px;
+    color: #8d8999;
+}
+
+
+/* =========================================================
+   IMPORTANT:
+   EDIT MODAL OVERLAY
+========================================================= */
+
+.faculty-modal-overlay {
+    position: fixed !important;
+
+    /*
+       IMPORTANT:
+       Modal આખી browser screen cover કરશે.
+    */
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+
+    width: 100vw !important;
+    height: 100vh !important;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    box-sizing: border-box;
+
+    background: rgba(18, 15, 30, 0.58);
+
+    /*
+       Sidebar/header કરતાં modal ઉપર રહે.
+    */
+    z-index: 999999 !important;
+
+    overflow-y: auto;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.faculty-modal {
+    position: relative;
+
+    width: min(760px, 100%);
+
+    max-height: calc(100vh - 48px);
+
+    display: flex;
+    flex-direction: column;
+
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 25px 70px rgba(20, 15, 40, 0.25);
+
+    overflow: hidden;
+
+    /*
+       Modal પોતે overlay ની અંદર center થશે.
+    */
+    margin: auto;
+
+    z-index: 1000000;
+}
+
+
+/* =========================================================
+   MODAL HEADER
+========================================================= */
+
+.faculty-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 20px 24px;
+
+    border-bottom: 1px solid #eceaf3;
+
+    background: #ffffff;
+
+    flex-shrink: 0;
+}
+
+.faculty-modal-header h2 {
+    margin: 0;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    color: #272533;
+}
+
+.faculty-modal-header p {
+    margin: 5px 0 0;
+
+    font-size: 13px;
+
+    color: #858293;
+}
+
+.modal-close-btn {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #f4f2f8;
+    color: #666273;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+
+    flex-shrink: 0;
+}
+
+.modal-close-btn:hover {
+    background: #ebe8f2;
+    color: #302d3b;
+}
+
+.modal-close-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   MODAL ERROR
+========================================================= */
+
+.modal-error-message {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin: 16px 24px 0;
+
+    padding: 11px 13px;
+
+    border-radius: 8px;
+
+    color: #c62828;
+    background: #fff1f2;
+
+    border: 1px solid #fecdd3;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   MODAL BODY
+========================================================= */
+
+.faculty-modal-body {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 17px;
+
+    padding: 22px 24px;
+
+    overflow-y: auto;
+
+    /*
+       Form fields scroll કરશે,
+       modal screen બહાર નહીં જાય.
+    */
+    max-height: calc(100vh - 220px);
+}
+
+
+/* =========================================================
+   FORM GROUP
+========================================================= */
+
+.faculty-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.faculty-form-full {
+    grid-column: 1 / -1;
+}
+
+.faculty-form-group label {
+    font-size: 13px;
+    font-weight: 600;
+
+    color: #3b3847;
+}
+
+.faculty-form-group label span {
+    color: #d93025;
+    margin-left: 3px;
+}
+
+.faculty-form-group input,
+.faculty-form-group select,
+.faculty-form-group textarea {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    border: 1px solid #ddd9e7;
+
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #302d3a;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.faculty-form-group input,
+.faculty-form-group select {
+    height: 42px;
+
+    padding: 0 12px;
+}
+
+.faculty-form-group textarea {
+    padding: 11px 12px;
+
+    resize: vertical;
+
+    min-height: 95px;
+}
+
+.faculty-form-group input:focus,
+.faculty-form-group select:focus,
+.faculty-form-group textarea:focus {
+    border-color: #6d3df5;
+
+    box-shadow:
+        0 0 0 3px rgba(109, 61, 245, 0.10);
+}
+
+.faculty-form-group input::placeholder,
+.faculty-form-group textarea::placeholder {
+    color: #aaa6b4;
+}
+
+.faculty-form-group input:disabled,
+.faculty-form-group select:disabled,
+.faculty-form-group textarea:disabled {
+    background: #f7f6fa;
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   MODAL FOOTER
+========================================================= */
+
+.faculty-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    padding: 16px 24px;
+
+    border-top: 1px solid #eceaf3;
+
+    background: #ffffff;
+
+    flex-shrink: 0;
+}
+
+.cancel-btn,
+.save-btn {
+    height: 40px;
+
+    padding: 0 17px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.cancel-btn {
+    background: #ffffff;
+
+    color: #5e5a6b;
+
+    border: 1px solid #dcd8e6;
+}
+
+.cancel-btn:hover {
+    background: #f7f6fa;
+}
+
+.save-btn {
+    background: #6d3df5;
+
+    color: #ffffff;
+
+    border: 1px solid #6d3df5;
+}
+
+.save-btn:hover {
+    background: #5d2ee2;
+    border-color: #5d2ee2;
+}
+
+.cancel-btn:disabled,
+.save-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+    .faculty-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 800px) {
+    .faculty-management-page {
+        padding: 20px;
+    }
+
+    .faculty-filter-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .faculty-status-filter {
+        width: 100%;
+    }
+
+    .faculty-modal-overlay {
+        padding: 16px;
+    }
+
+    .faculty-modal {
+        max-height: calc(100vh - 32px);
+    }
+
+    .faculty-modal-body {
+        grid-template-columns: 1fr;
+        max-height: calc(100vh - 210px);
+    }
+
+    .faculty-form-full {
+        grid-column: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .faculty-management-page {
+        padding: 15px;
+    }
+
+    .faculty-page-header h1 {
+        font-size: 23px;
+    }
+
+    .faculty-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .faculty-modal-header {
+        padding: 17px;
+    }
+
+    .faculty-modal-body {
+        padding: 18px;
+    }
+
+    .faculty-modal-footer {
+        padding: 14px 18px;
+    }
+
+    .faculty-modal-footer button {
+        flex: 1;
+    }
+}

@@ -1,0 +1,145 @@
+/* =====================================================
+   ADMIN LOGIN PAGE STYLES
+===================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #ffffff; /* ડાર્ક થીમ બેકગ્રાઉન્ડ એડમિન માટે */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.admin-login-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.admin-login-box {
+    background: #ffffff;
+    padding: 45px 40px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 420px;
+}
+
+.admin-login-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.admin-login-header .brand-mark {
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6d3df5, #8b5cf6);
+    margin-bottom: 15px;
+    box-shadow: 0 5px 15px rgba(109, 61, 245, 0.3);
+}
+
+.admin-login-header h2 {
+    color: #172033;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.admin-login-header p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #475569;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px 16px;
+    background-color: #f8faff;
+    border: 1px solid #e8eaf2;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #172033;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    background-color: #ffffff;
+    border-color: #6d3df5;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(109, 61, 245, 0.1);
+}
+
+.admin-login-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #6d3df5, #8b5cf6);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(109, 61, 245, 0.25);
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.admin-login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(109, 61, 245, 0.35);
+}
+
+.back-to-home {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.back-to-home a {
+    color: #64748b;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.back-to-home a:hover {
+    color: #6d3df5;
+}
+
+/* Field-level validation messages */
+.field-error {
+    margin-top: 6px;
+    color: #dc2626;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.input-group input.input-error {
+    border-color: #dc2626;
+    background-color: #fff7f7;
+}
+
+.input-group input.input-error:focus {
+    border-color: #dc2626;
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.08);
+}

@@ -1,0 +1,584 @@
+/* =========================================
+   FACULTY STUDENT DETAILS
+========================================= */
+
+.faculty-student-details-page {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+.faculty-student-back-btn {
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 13px;
+  margin-bottom: 18px;
+  border: 1px solid #e1e5ed;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #596376;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.faculty-student-back-btn:hover {
+  color: #6d3df5;
+  border-color: #cfc7f3;
+  background: #faf9ff;
+}
+
+/* =========================================
+   PROFILE CARD
+========================================= */
+
+.faculty-student-profile-card {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  padding: 20px;
+  margin-bottom: 18px;
+  background: #ffffff;
+  border: 1px solid #e8ebf1;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(30, 41, 59, 0.035);
+}
+
+.faculty-student-large-avatar {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 17px;
+  background: #f0ebff;
+  color: #6d3df5;
+  font-size: 25px;
+  font-weight: 750;
+}
+
+.faculty-student-profile-main {
+  min-width: 0;
+  flex: 1;
+}
+
+.faculty-student-profile-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.faculty-student-profile-name-row h1 {
+  margin: 0;
+  color: #202a3d;
+  font-size: 23px;
+  font-weight: 750;
+}
+
+.faculty-student-profile-name-row p {
+  margin: 4px 0 0;
+  color: #858e9e;
+  font-size: 11px;
+}
+
+.faculty-student-detail-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.faculty-student-detail-status.active {
+  background: #e7f7ee;
+  color: #13884e;
+}
+
+.faculty-student-detail-status.inactive {
+  background: #fdeaea;
+  color: #d13f3f;
+}
+
+.faculty-student-contact-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px 22px;
+  margin-top: 12px;
+}
+
+.faculty-student-contact-row div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  color: #697487;
+  font-size: 11.5px;
+}
+
+.faculty-student-contact-row svg {
+  flex-shrink: 0;
+  color: #8b94a5;
+}
+
+/* =========================================
+   COMMON SECTION CARDS
+========================================= */
+
+.faculty-student-course-card,
+.faculty-student-progress-card,
+.faculty-student-information-card {
+  padding: 20px;
+  margin-bottom: 18px;
+  background: #ffffff;
+  border: 1px solid #e8ebf1;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(30, 41, 59, 0.03);
+}
+
+.faculty-student-section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.faculty-student-section-icon {
+  width: 39px;
+  height: 39px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 9px;
+}
+
+.faculty-student-section-icon.purple {
+  background: #f0ebff;
+  color: #6d3df5;
+}
+
+.faculty-student-section-icon.blue {
+  background: #eaf3ff;
+  color: #3c82df;
+}
+
+.faculty-student-section-icon.green {
+  background: #e9f8ef;
+  color: #16a05d;
+}
+
+.faculty-student-section-header h2 {
+  margin: 0;
+  color: #202a3d;
+  font-size: 16px;
+  font-weight: 720;
+}
+
+.faculty-student-section-header p {
+  margin: 4px 0 0;
+  color: #858e9e;
+  font-size: 11px;
+}
+
+/* =========================================
+   COURSE
+========================================= */
+
+.faculty-student-course-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid #edf0f4;
+  border-radius: 10px;
+  background: #fcfcfd;
+}
+
+.faculty-student-course-title {
+  min-width: 0;
+}
+
+.faculty-student-course-title > span {
+  display: inline-block;
+  margin-bottom: 5px;
+  color: #6d3df5;
+  font-size: 9.5px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.faculty-student-course-title h3 {
+  margin: 0;
+  color: #273146;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.faculty-student-course-title p {
+  margin: 5px 0 0;
+  color: #858e9e;
+  font-size: 10.5px;
+}
+
+.faculty-student-course-meta {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-shrink: 0;
+}
+
+.faculty-student-course-meta div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #687386;
+  font-size: 10.5px;
+}
+
+.faculty-student-course-meta svg {
+  color: #6d3df5;
+}
+
+/* =========================================
+   PROGRESS
+========================================= */
+
+.faculty-student-progress-main {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  align-items: center;
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.faculty-student-progress-circle {
+  width: 125px;
+  height: 125px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  border: 8px solid #eee9ff;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.faculty-student-progress-circle strong {
+  color: #6d3df5;
+  font-size: 23px;
+  font-weight: 750;
+}
+
+.faculty-student-progress-circle span {
+  margin-top: 3px;
+  color: #8a93a3;
+  font-size: 9.5px;
+}
+
+.faculty-student-progress-details {
+  min-width: 0;
+}
+
+.faculty-student-progress-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 7px;
+}
+
+.faculty-student-progress-label span {
+  color: #687386;
+  font-size: 11px;
+}
+
+.faculty-student-progress-label strong {
+  color: #6d3df5;
+  font-size: 12px;
+}
+
+.faculty-student-detail-progress-bar {
+  width: 100%;
+  height: 7px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #eceef3;
+}
+
+.faculty-student-detail-progress-bar div {
+  height: 100%;
+  border-radius: inherit;
+  background: #6d3df5;
+}
+
+.faculty-student-progress-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 17px;
+}
+
+.faculty-student-progress-stats div {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: 7px;
+  padding: 11px;
+  border: 1px solid #edf0f4;
+  border-radius: 9px;
+  background: #fcfcfd;
+}
+
+.faculty-student-progress-stats svg {
+  grid-row: span 2;
+  color: #6d3df5;
+}
+
+.faculty-student-progress-stats span {
+  color: #858e9e;
+  font-size: 9.5px;
+}
+
+.faculty-student-progress-stats strong {
+  color: #283247;
+  font-size: 13px;
+}
+
+/* =========================================
+   STUDENT INFORMATION
+========================================= */
+
+.faculty-student-information-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.faculty-student-information-grid > div {
+  min-width: 0;
+  padding: 13px;
+  border: 1px solid #edf0f4;
+  border-radius: 9px;
+  background: #fcfcfd;
+}
+
+.faculty-student-information-grid span {
+  display: block;
+  margin-bottom: 5px;
+  color: #858e9e;
+  font-size: 9.5px;
+}
+
+.faculty-student-information-grid strong {
+  display: block;
+  color: #283247;
+  font-size: 11.5px;
+  font-weight: 680;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.faculty-info-status.active {
+  color: #13884e !important;
+}
+
+.faculty-info-status.inactive {
+  color: #d13f3f !important;
+}
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.faculty-student-actions-section {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+  margin-bottom: 10px;
+}
+
+.faculty-student-action-btn {
+  height: 39px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 14px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.faculty-student-action-btn.primary {
+  border: 1px solid #6d3df5;
+  background: #6d3df5;
+  color: #ffffff;
+}
+
+.faculty-student-action-btn.primary:hover {
+  background: #5d31df;
+}
+
+.faculty-student-action-btn.secondary {
+  border: 1px solid #e1e5ed;
+  background: #ffffff;
+  color: #596376;
+}
+
+.faculty-student-action-btn.secondary:hover {
+  color: #6d3df5;
+  border-color: #cfc7f3;
+  background: #faf9ff;
+}
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.faculty-student-details-empty {
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #e8ebf1;
+  border-radius: 14px;
+}
+
+.faculty-student-details-empty-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  border-radius: 16px;
+  background: #f0ebff;
+  color: #6d3df5;
+}
+
+.faculty-student-details-empty h2 {
+  margin: 0 0 7px;
+  color: #202a3d;
+  font-size: 19px;
+}
+
+.faculty-student-details-empty p {
+  margin: 0 0 18px;
+  color: #858e9e;
+  font-size: 12px;
+}
+
+.faculty-student-details-empty button {
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 8px;
+  background: #6d3df5;
+  color: #ffffff;
+  font-size: 11.5px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1050px) {
+  .faculty-student-information-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .faculty-student-progress-main {
+    grid-template-columns: 130px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 750px) {
+  .faculty-student-profile-card {
+    align-items: flex-start;
+  }
+
+  .faculty-student-profile-name-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .faculty-student-course-content {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .faculty-student-course-meta {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .faculty-student-progress-main {
+    grid-template-columns: 1fr;
+  }
+
+  .faculty-student-progress-circle {
+    margin: 0;
+  }
+
+  .faculty-student-progress-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .faculty-student-actions-section {
+    justify-content: stretch;
+    flex-direction: column;
+  }
+
+  .faculty-student-action-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .faculty-student-profile-card,
+  .faculty-student-course-card,
+  .faculty-student-progress-card,
+  .faculty-student-information-card {
+    padding: 14px;
+  }
+
+  .faculty-student-large-avatar {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    font-size: 21px;
+  }
+
+  .faculty-student-profile-name-row h1 {
+    font-size: 20px;
+  }
+
+  .faculty-student-information-grid {
+    grid-template-columns: 1fr;
+  }
+}

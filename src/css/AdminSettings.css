@@ -1,0 +1,592 @@
+.admin-settings {
+    padding: 30px;
+    width: 100%;
+    min-height: 100%;
+    background: #f8fafc;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.admin-settings-header {
+    margin-bottom: 25px;
+}
+
+.admin-settings-header h1 {
+    margin: 0 0 6px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.admin-settings-header p {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+
+/* =========================
+   SUCCESS MESSAGE
+========================= */
+
+.settings-success-message {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 13px 16px;
+    margin-bottom: 20px;
+
+    border-radius: 8px;
+
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+
+    color: #047857;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.admin-settings-container {
+    display: grid;
+    grid-template-columns: 230px minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+
+/* =========================
+   SETTINGS SIDEBAR
+========================= */
+
+.admin-settings-sidebar {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+.admin-settings-sidebar button {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    border: none;
+    background: transparent;
+
+    padding: 12px 14px;
+    margin-bottom: 4px;
+
+    border-radius: 8px;
+
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+
+    text-align: left;
+}
+
+.admin-settings-sidebar button:last-child {
+    margin-bottom: 0;
+}
+
+.admin-settings-sidebar button:hover {
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+.admin-settings-sidebar button.active {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.admin-settings-sidebar button.active:hover {
+    background: #1d4ed8;
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.admin-settings-content {
+    min-width: 0;
+}
+
+.admin-settings-section {
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+
+    padding: 26px;
+}
+
+
+/* =========================
+   SECTION TITLE
+========================= */
+
+.settings-section-title {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+
+    padding-bottom: 20px;
+    margin-bottom: 22px;
+
+    border-bottom: 1px solid #e2e8f0;
+
+    color: #2563eb;
+}
+
+.settings-section-title svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.settings-section-title h2 {
+    margin: 0 0 5px;
+
+    color: #1e293b;
+
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.settings-section-title p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.admin-settings-form {
+    max-width: 700px;
+}
+
+.admin-form-group {
+    margin-bottom: 20px;
+}
+
+.admin-form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #334155;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.admin-form-group input,
+.admin-form-group select {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 11px 13px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #1e293b;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.admin-form-group input::placeholder {
+    color: #94a3b8;
+}
+
+.admin-form-group input:focus,
+.admin-form-group select:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================
+   INPUT WITH ICON
+========================= */
+
+.admin-input-wrapper {
+    position: relative;
+}
+
+.admin-input-wrapper svg {
+    position: absolute;
+
+    left: 13px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #94a3b8;
+
+    pointer-events: none;
+}
+
+.admin-input-wrapper input {
+    padding-left: 40px;
+}
+
+
+/* =========================
+   SAVE BUTTON
+========================= */
+
+.admin-save-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-height: 42px;
+
+    padding: 10px 18px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #2563eb;
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+.admin-save-btn:hover {
+    background: #1d4ed8;
+}
+
+.admin-save-btn:active {
+    transform: translateY(1px);
+}
+
+
+/* =========================
+   NOTIFICATIONS
+========================= */
+
+.notification-settings {
+    margin-bottom: 22px;
+}
+
+.notification-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 17px 0;
+
+    border-bottom: 1px solid #e2e8f0;
+
+    cursor: pointer;
+}
+
+.notification-item:first-child {
+    padding-top: 0;
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-item > div {
+    min-width: 0;
+}
+
+.notification-item strong {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #334155;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.notification-item span {
+    display: block;
+
+    color: #64748b;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   CHECKBOX
+========================= */
+
+.notification-item input[type="checkbox"] {
+    appearance: none;
+
+    position: relative;
+
+    width: 42px;
+    height: 23px;
+
+    flex-shrink: 0;
+
+    border: none;
+    border-radius: 20px;
+
+    background: #cbd5e1;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.notification-item input[type="checkbox"]::before {
+    content: "";
+
+    position: absolute;
+
+    width: 17px;
+    height: 17px;
+
+    left: 3px;
+    top: 3px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    transition: transform 0.2s ease;
+}
+
+.notification-item input[type="checkbox"]:checked {
+    background: #2563eb;
+}
+
+.notification-item input[type="checkbox"]:checked::before {
+    transform: translateX(19px);
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .admin-settings {
+        padding: 22px;
+    }
+
+    .admin-settings-container {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-settings-sidebar {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 5px;
+    }
+
+    .admin-settings-sidebar button {
+        justify-content: center;
+        margin-bottom: 0;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .admin-settings {
+        padding: 16px;
+    }
+
+    .admin-settings-header h1 {
+        font-size: 23px;
+    }
+
+    .admin-settings-section {
+        padding: 20px;
+    }
+
+    .admin-settings-sidebar {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .admin-settings-sidebar button {
+        justify-content: flex-start;
+    }
+
+    .settings-section-title h2 {
+        font-size: 18px;
+    }
+
+    .notification-item {
+        align-items: flex-start;
+    }
+
+}
+
+
+@media (max-width: 420px) {
+
+    .admin-settings-sidebar {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-settings-sidebar button {
+        justify-content: flex-start;
+    }
+
+    .admin-settings-section {
+        padding: 16px;
+    }
+
+    .settings-section-title {
+        gap: 10px;
+    }
+
+    .admin-save-btn {
+        width: 100%;
+    }
+
+}
+
+/* =====================================================
+   FIELD VALIDATION
+===================================================== */
+
+.admin-field-error {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    margin-top: 6px;
+
+    color: #dc2626;
+
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.admin-field-error svg {
+    flex-shrink: 0;
+}
+
+
+/* =====================================================
+   INPUT ERROR
+===================================================== */
+
+.admin-form-group input.admin-input-error {
+    border-color: #dc2626;
+    background: #fff7f7;
+}
+
+.admin-form-group input.admin-input-error:focus {
+    border-color: #dc2626;
+
+    box-shadow:
+        0 0 0 3px rgba(220, 38, 38, 0.08);
+}
+
+
+/* =====================================================
+   GENERAL ERROR MESSAGE
+===================================================== */
+
+.settings-error-message {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 13px 16px;
+    margin-bottom: 20px;
+
+    border-radius: 8px;
+
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+
+    color: #dc2626;
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+/* =====================================================
+   DISABLED BUTTON
+===================================================== */
+
+.admin-save-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+.admin-save-btn:disabled:hover {
+    background: #2563eb;
+}
+
+
+/* =====================================================
+   DISABLED INPUT
+===================================================== */
+
+.admin-form-group input:disabled {
+    background: #f8fafc;
+    color: #64748b;
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
+   DISABLED CHECKBOX
+===================================================== */
+
+.notification-item input[type="checkbox"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

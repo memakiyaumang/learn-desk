@@ -1,0 +1,316 @@
+/* =====================================================
+   GLOBAL RESET
+===================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+html {
+  width: 100%;
+  min-height: 100%;
+}
+
+
+body {
+  width: 100%;
+  min-height: 100vh;
+
+  margin: 0;
+
+  font-family:
+    "Inter",
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background: #f8faff;
+
+  color: #172033;
+
+  overflow-x: hidden;
+}
+
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+
+/* =====================================================
+   THEME
+===================================================== */
+
+:root {
+  --primary: #6d3df5;
+
+  --primary-light: #f1edff;
+
+  --primary-hover: #5b2fe0;
+
+  --background: #f8faff;
+
+  --surface: #ffffff;
+
+  --text: #172033;
+
+  --text-secondary: #64748b;
+
+  --muted: #94a3b8;
+
+  --border: #e8eaf2;
+
+  --success: #35b779;
+
+  --warning: #f59e0b;
+
+  --danger: #ef476f;
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
+.app {
+  width: 100%;
+
+  min-height: 100vh;
+
+  background: #f8faff;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.app > header {
+  width: 100%;
+
+  height: 70px;
+
+  position: fixed;
+
+  top: 0;
+
+  left: 0;
+
+  z-index: 1000;
+}
+
+
+/* =====================================================
+   MAIN CONTENT
+===================================================== */
+
+.main-content {
+  /*
+    Header = 70px
+    Sidebar = 258px
+  */
+
+  margin-left: 258px;
+
+  padding-top: 70px;
+
+  min-height: 100vh;
+
+  width: calc(100% - 258px);
+
+  padding-left: 28px;
+
+  padding-right: 28px;
+
+  padding-bottom: 40px;
+
+  background: #f8faff;
+
+  overflow-x: hidden;
+
+  box-sizing: border-box;
+}
+
+
+/* =====================================================
+   MAIN CONTENT CHILD
+===================================================== */
+
+.main-content > * {
+  width: 100%;
+}
+
+
+/* =====================================================
+   GENERAL CARD STYLE
+===================================================== */
+
+.main-content .card,
+.main-content .course-card,
+.main-content .stat-card {
+  background: #ffffff;
+
+  border: 1px solid #edf0f6;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 4px 18px rgba(15, 23, 42, 0.04);
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.app > .site-footer {
+  width: calc(100% - 200px);
+
+  margin-left: 240px;
+
+  position: relative;
+
+  z-index: 10;
+}
+
+
+/* =====================================================
+   LINKS
+===================================================== */
+
+a {
+  text-decoration: none;
+}
+
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+button {
+  font-family: inherit;
+}
+
+
+/* =====================================================
+   IMAGES
+===================================================== */
+
+img {
+  max-width: 100%;
+
+  display: block;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1100px) {
+
+  .main-content {
+    margin-left: 230px;
+
+    width: calc(100% - 230px);
+
+    padding-left: 22px;
+
+    padding-right: 22px;
+  }
+
+  .app > .site-footer {
+    width: calc(100% - 230px);
+
+    margin-left: 230px;
+  }
+}
+
+
+/* =====================================================
+   SMALL TABLET
+===================================================== */
+
+@media (max-width: 850px) {
+
+  .main-content {
+    margin-left: 76px;
+
+    width: calc(100% - 76px);
+
+    padding-left: 18px;
+
+    padding-right: 18px;
+  }
+
+  .app > .site-footer {
+    width: calc(100% - 76px);
+
+    margin-left: 76px;
+  }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+  .main-content {
+    margin-left: 68px;
+
+    width: calc(100% - 68px);
+
+    padding-left: 14px;
+
+    padding-right: 14px;
+
+    padding-bottom: 30px;
+  }
+
+  .app > .site-footer {
+    width: calc(100% - 68px);
+
+    margin-left: 68px;
+  }
+}
+
+
+/* =====================================================
+   VERY SMALL MOBILE
+===================================================== */
+
+@media (max-width: 400px) {
+
+  .main-content {
+    padding-left: 10px;
+
+    padding-right: 10px;
+  }
+}
+
+/* =========================================
+   GLOBAL DARK THEME
+========================================= */
+
+[data-theme="dark"] body {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .app {
+  background: #0f172a;
+}
+
+[data-theme="dark"] .main-content {
+  background: #0f172a;
+}
+
+[data-theme="dark"] .page-content {
+  background: #0f172a;
+}

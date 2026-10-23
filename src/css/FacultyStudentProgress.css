@@ -1,0 +1,692 @@
+/* =========================================
+   FACULTY STUDENT PROGRESS
+========================================= */
+
+.faculty-student-progress-page {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.faculty-progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 21px;
+}
+
+.faculty-progress-title-row {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.faculty-progress-title-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 11px;
+  background: #f0ebff;
+  color: #6d3df5;
+}
+
+.faculty-progress-header h1 {
+  margin: 0;
+  color: #172033;
+  font-size: 25px;
+  font-weight: 750;
+  letter-spacing: -0.5px;
+}
+
+.faculty-progress-header p {
+  margin: 5px 0 0;
+  color: #7b8497;
+  font-size: 13px;
+}
+
+.faculty-progress-course {
+  max-width: 290px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 12px;
+  border: 1px solid #ddd6fb;
+  border-radius: 8px;
+  background: #f8f6ff;
+  color: #6d3df5;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.faculty-progress-course span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* =========================================
+   STATS
+========================================= */
+
+.faculty-progress-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 19px;
+}
+
+.faculty-progress-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+  padding: 16px;
+  background: #ffffff;
+  border: 1px solid #e9ebf2;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(30, 41, 59, 0.035);
+}
+
+.faculty-progress-stat-icon {
+  width: 39px;
+  height: 39px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 9px;
+}
+
+.faculty-progress-stat-icon.purple {
+  background: #f0ebff;
+  color: #6d3df5;
+}
+
+.faculty-progress-stat-icon.blue {
+  background: #eaf3ff;
+  color: #3c82df;
+}
+
+.faculty-progress-stat-icon.green {
+  background: #e9f8ef;
+  color: #16a05d;
+}
+
+.faculty-progress-stat-icon.orange {
+  background: #fff3df;
+  color: #e58a13;
+}
+
+.faculty-progress-stat-card span {
+  display: block;
+  margin-bottom: 4px;
+  color: #7d8798;
+  font-size: 10.5px;
+}
+
+.faculty-progress-stat-card strong {
+  display: block;
+  color: #172033;
+  font-size: 20px;
+  font-weight: 750;
+}
+
+/* =========================================
+   TOOLBAR
+========================================= */
+
+.faculty-progress-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 13px;
+  padding: 12px;
+  margin-bottom: 16px;
+  background: #ffffff;
+  border: 1px solid #e9ebf2;
+  border-radius: 11px;
+}
+
+.faculty-progress-search {
+  width: min(410px, 100%);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  border: 1px solid #e1e5ed;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #8b94a5;
+}
+
+.faculty-progress-search:focus-within {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(109, 61, 245, 0.08);
+}
+
+.faculty-progress-search input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #273248;
+  font-size: 12.5px;
+}
+
+.faculty-progress-search input::placeholder {
+  color: #9ba3b1;
+}
+
+.faculty-progress-filter {
+  height: 40px;
+  min-width: 150px;
+  padding: 0 11px;
+  border: 1px solid #e1e5ed;
+  border-radius: 8px;
+  outline: none;
+  background: #ffffff;
+  color: #3d4658;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.faculty-progress-filter:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(109, 61, 245, 0.08);
+}
+
+/* =========================================
+   OVERVIEW
+========================================= */
+
+.faculty-progress-overview {
+  padding: 17px;
+  margin-bottom: 17px;
+  background: #ffffff;
+  border: 1px solid #e8ebf1;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(30, 41, 59, 0.03);
+}
+
+.faculty-progress-overview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 13px;
+}
+
+.faculty-progress-overview-header h2 {
+  margin: 0;
+  color: #202a3d;
+  font-size: 15px;
+  font-weight: 720;
+}
+
+.faculty-progress-overview-header p {
+  margin: 4px 0 0;
+  color: #858e9e;
+  font-size: 10.5px;
+}
+
+.faculty-progress-overview-value {
+  color: #6d3df5;
+  font-size: 20px;
+  font-weight: 750;
+}
+
+.faculty-overview-bar {
+  width: 100%;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #eceef3;
+}
+
+.faculty-overview-bar div {
+  height: 100%;
+  border-radius: inherit;
+  background: #6d3df5;
+}
+
+.faculty-overview-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px 20px;
+  margin-top: 11px;
+}
+
+.faculty-overview-legend span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #747e91;
+  font-size: 10px;
+}
+
+.faculty-overview-legend i {
+  width: 7px;
+  height: 7px;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.legend-completed {
+  background: #16a05d;
+}
+
+.legend-progress {
+  background: #6d3df5;
+}
+
+.legend-not-started {
+  background: #c6cbd4;
+}
+
+/* =========================================
+   TABLE
+========================================= */
+
+.faculty-progress-table-card {
+  width: 100%;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e8ebf1;
+  border-radius: 13px;
+  box-shadow: 0 4px 14px rgba(30, 41, 59, 0.035);
+}
+
+.faculty-progress-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.faculty-progress-table {
+  width: 100%;
+  min-width: 850px;
+  border-collapse: collapse;
+}
+
+.faculty-progress-table thead {
+  background: #fafafd;
+}
+
+.faculty-progress-table th {
+  padding: 13px 15px;
+  border-bottom: 1px solid #eceef3;
+  color: #707a8d;
+  font-size: 10px;
+  font-weight: 700;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.faculty-progress-table td {
+  padding: 13px 15px;
+  border-bottom: 1px solid #f0f1f4;
+  color: #596376;
+  font-size: 11px;
+  vertical-align: middle;
+}
+
+.faculty-progress-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.faculty-progress-table tbody tr:hover {
+  background: #fcfcff;
+}
+
+/* =========================================
+   STUDENT
+========================================= */
+
+.faculty-progress-student {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 210px;
+}
+
+.faculty-progress-avatar {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 9px;
+  background: #f0ebff;
+  color: #6d3df5;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.faculty-progress-student strong {
+  display: block;
+  max-width: 160px;
+  margin-bottom: 3px;
+  color: #283247;
+  font-size: 11.5px;
+  font-weight: 680;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.faculty-progress-student span {
+  display: block;
+  max-width: 180px;
+  color: #9098a7;
+  font-size: 9px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* =========================================
+   PROGRESS CELL
+========================================= */
+
+.faculty-progress-cell {
+  width: 125px;
+}
+
+.faculty-progress-cell-top {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 5px;
+}
+
+.faculty-progress-cell-top span {
+  color: #556074;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.faculty-progress-cell-bar {
+  width: 100%;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #eceef3;
+}
+
+.faculty-progress-cell-bar div {
+  height: 100%;
+  border-radius: inherit;
+}
+
+.faculty-progress-cell-bar .progress-bar {
+  background: #6d3df5;
+}
+
+.faculty-progress-cell-bar .complete-bar {
+  background: #16a05d;
+}
+
+.faculty-progress-cell-bar .empty-bar {
+  background: transparent;
+}
+
+/* =========================================
+   NUMBERS
+========================================= */
+
+.faculty-progress-number {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 650;
+}
+
+.faculty-progress-number.completed {
+  color: #16a05d;
+}
+
+.faculty-progress-number.remaining {
+  color: #e58a13;
+}
+
+/* =========================================
+   STATUS
+========================================= */
+
+.faculty-progress-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 9px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.faculty-progress-status.completed {
+  background: #e7f7ee;
+  color: #13884e;
+}
+
+.faculty-progress-status.in-progress {
+  background: #f0ebff;
+  color: #6d3df5;
+}
+
+.faculty-progress-status.not-started {
+  background: #edf0f5;
+  color: #687386;
+}
+
+/* =========================================
+   VIEW
+========================================= */
+
+.faculty-progress-view-btn {
+  height: 31px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 10px;
+  border: 1px solid #ddd6fb;
+  border-radius: 7px;
+  background: #f8f6ff;
+  color: #6d3df5;
+  font-size: 10px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.faculty-progress-view-btn:hover {
+  background: #eeeaff;
+}
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.faculty-progress-empty {
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #e8ebf1;
+  border-radius: 13px;
+}
+
+.faculty-progress-empty-icon {
+  width: 62px;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  border-radius: 16px;
+  background: #f0ebff;
+  color: #6d3df5;
+}
+
+.faculty-progress-empty h3 {
+  margin: 0 0 7px;
+  color: #202a3d;
+  font-size: 17px;
+}
+
+.faculty-progress-empty p {
+  max-width: 430px;
+  margin: 0 0 18px;
+  color: #858e9e;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.faculty-progress-empty button {
+  height: 37px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 13px;
+  border: none;
+  border-radius: 8px;
+  background: #6d3df5;
+  color: #ffffff;
+  font-size: 11.5px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1100px) {
+  .faculty-progress-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 750px) {
+  .faculty-progress-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .faculty-progress-course {
+    max-width: 100%;
+  }
+
+  .faculty-progress-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .faculty-progress-search {
+    width: 100%;
+  }
+
+  .faculty-progress-filter {
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .faculty-progress-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .faculty-progress-header h1 {
+    font-size: 22px;
+  }
+
+  .faculty-progress-title-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .faculty-progress-overview {
+    padding: 14px;
+  }
+}
+
+/* =========================================
+   LOADING / ERROR
+========================================= */
+
+.faculty-progress-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 13px;
+  margin-bottom: 16px;
+  border: 1px solid #fecaca;
+  border-radius: 9px;
+  background: #fff7f7;
+  color: #dc2626;
+  font-size: 11px;
+}
+
+.faculty-progress-error span {
+  min-width: 0;
+}
+
+.faculty-progress-error button {
+  height: 30px;
+  flex-shrink: 0;
+  padding: 0 10px;
+  border: 1px solid #fca5a5;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #dc2626;
+  font-size: 10px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.faculty-progress-error button:hover {
+  background: #fff1f1;
+}
+
+.faculty-progress-loading-icon {
+  animation: facultyProgressSpin 1.2s linear infinite;
+}
+
+@keyframes facultyProgressSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.faculty-progress-search input:disabled,
+.faculty-progress-filter:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+@media (max-width: 500px) {
+  .faculty-progress-error {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .faculty-progress-error button {
+    width: 100%;
+  }
+}

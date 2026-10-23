@@ -1,0 +1,625 @@
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.sidebar {
+  width: 258px;
+  min-width: 258px;
+
+  height: calc(100vh - 70px);
+
+  position: fixed;
+
+  top: 70px;
+  left: 0;
+
+  background: #ffffff;
+
+  border-right: 1px solid #e8eaf1;
+
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+
+  z-index: 100;
+
+  font-family:
+    "Inter",
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+
+/* =========================================
+   SIDEBAR CONTENT
+========================================= */
+
+.sidebar-content {
+  flex: 1;
+
+  padding: 20px 12px;
+
+  overflow-y: auto;
+
+  overflow-x: hidden;
+}
+
+
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+.sidebar-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb {
+  background: #ddd8f4;
+
+  border-radius: 10px;
+}
+
+
+/* =========================================
+   SECTION
+========================================= */
+
+.sidebar-section {
+  width: 100%;
+}
+
+.support-section {
+  margin-top: 30px;
+}
+
+
+/* =========================================
+   SECTION HEADING
+========================================= */
+
+.sidebar-heading {
+  margin: 0;
+
+  padding: 0 13px 11px;
+
+  color: #a1a7b3;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+
+  line-height: 1;
+}
+
+
+/* =========================================
+   SIDEBAR LINK
+========================================= */
+
+.sidebar-link {
+  width: 100%;
+
+  height: 45px;
+
+  margin-bottom: 5px;
+
+  padding: 0 13px;
+
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  box-sizing: border-box;
+
+  border-radius: 9px;
+
+  text-decoration: none;
+
+  color: #687285;
+
+  background: transparent;
+
+  font-size: 13px;
+
+  font-weight: 500;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+/* =========================================
+   ICON
+========================================= */
+
+.sidebar-icon {
+  width: 20px;
+
+  min-width: 20px;
+
+  height: 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  color: #858d9d;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+/* =========================================
+   ALL ICONS SAME SIZE
+========================================= */
+
+.sidebar-icon svg {
+  width: 19px;
+
+  height: 19px;
+
+  display: block;
+
+  fill: none;
+
+  stroke: currentColor;
+
+  stroke-width: 1.8;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
+}
+
+
+/* =========================================
+   LINK TEXT
+========================================= */
+
+.sidebar-link-text {
+  line-height: 1;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================
+   HOVER
+========================================= */
+
+.sidebar-link:hover {
+  background: #f8f6ff;
+
+  color: #633bea;
+}
+
+.sidebar-link:hover .sidebar-icon {
+  color: #6d3df5;
+
+  transform: translateX(1px);
+}
+
+
+/* =========================================
+   ACTIVE LINK
+========================================= */
+
+.sidebar-link.active {
+  background: #f1edff;
+
+  color: #633bea;
+
+  font-weight: 650;
+}
+
+
+/* =========================================
+   ACTIVE PURPLE LINE
+========================================= */
+
+.sidebar-link.active::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+
+  top: 50%;
+
+  width: 3px;
+
+  height: 24px;
+
+  transform: translateY(-50%);
+
+  background: #6d3df5;
+
+  border-radius:
+    0 5px 5px 0;
+}
+
+
+/* =========================================
+   ACTIVE ICON
+========================================= */
+
+.sidebar-link.active .sidebar-icon {
+  color: #6d3df5;
+}
+
+
+/* =========================================
+   BOTTOM USER SECTION
+========================================= */
+
+.sidebar-bottom {
+  flex-shrink: 0;
+
+  padding: 12px;
+
+  background: #ffffff;
+
+  border-top: 1px solid #f0f1f5;
+}
+
+
+/* =========================================
+   USER
+========================================= */
+
+.sidebar-user {
+  min-height: 52px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 6px;
+
+  border-radius: 9px;
+
+  transition:
+    background 0.2s ease;
+}
+
+.sidebar-user:hover {
+  background: #faf9ff;
+}
+
+
+/* =========================================
+   USER AVATAR
+========================================= */
+
+.sidebar-avatar {
+  width: 36px;
+
+  min-width: 36px;
+
+  height: 36px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6d3df5,
+      #8c68f7
+    );
+
+  color: #ffffff;
+
+  font-size: 11px;
+
+  font-weight: 750;
+
+  box-shadow:
+    0 4px 10px
+    rgba(109, 61, 245, 0.18);
+}
+
+
+/* =========================================
+   USER INFORMATION
+========================================= */
+
+.sidebar-user-info {
+  flex: 1;
+
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+
+/* USER NAME */
+
+.sidebar-user-info strong {
+  display: block;
+
+  overflow: hidden;
+
+  color: #283044;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  text-overflow: ellipsis;
+}
+
+
+/* USER ROLE */
+
+.sidebar-user-info span {
+  color: #9299a8;
+
+  font-size: 9px;
+
+  font-weight: 500;
+}
+
+
+/* =========================================
+   MORE BUTTON
+========================================= */
+
+.sidebar-more {
+  width: 30px;
+
+  min-width: 30px;
+
+  height: 30px;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 7px;
+
+  background: transparent;
+
+  color: #9299a8;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+
+/* More Icon */
+
+.sidebar-more svg {
+  width: 17px;
+
+  height: 17px;
+
+  stroke: currentColor;
+
+  stroke-width: 2;
+}
+
+
+/* More Hover */
+
+.sidebar-more:hover {
+  background: #f5f3fb;
+
+  color: #6d3df5;
+}
+
+
+/* =========================================
+   MAIN CONTENT SPACE
+========================================= */
+
+.content-wrapper {
+  margin-left: 258px;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1100px) {
+
+  .sidebar {
+    width: 230px;
+
+    min-width: 230px;
+  }
+
+  .content-wrapper {
+    margin-left: 230px;
+  }
+
+  .sidebar-link {
+    font-size: 12px;
+  }
+}
+
+
+/* =========================================
+   SMALL TABLET
+========================================= */
+
+@media (max-width: 850px) {
+
+  .sidebar {
+    width: 76px;
+
+    min-width: 76px;
+  }
+
+  .content-wrapper {
+    margin-left: 76px;
+  }
+
+
+  .sidebar-content {
+    padding: 18px 8px;
+  }
+
+
+  /* Heading */
+
+  .sidebar-heading {
+    padding-left: 0;
+
+    padding-right: 0;
+
+    text-align: center;
+
+    font-size: 0;
+  }
+
+
+  .sidebar-heading::after {
+    content: "";
+
+    display: block;
+
+    width: 25px;
+
+    height: 1px;
+
+    margin: 0 auto;
+
+    background: #e8eaf1;
+  }
+
+
+  /* Links */
+
+  .sidebar-link {
+    justify-content: center;
+
+    padding: 0;
+
+    gap: 0;
+  }
+
+
+  /* Hide text */
+
+  .sidebar-link-text {
+    display: none;
+  }
+
+
+  /* Icons */
+
+  .sidebar-icon {
+    width: 21px;
+
+    min-width: 21px;
+
+    height: 21px;
+  }
+
+  .sidebar-icon svg {
+    width: 20px;
+
+    height: 20px;
+  }
+
+
+  /* Bottom */
+
+  .sidebar-bottom {
+    padding: 8px;
+  }
+
+  .sidebar-user {
+    justify-content: center;
+
+    padding: 7px 0;
+  }
+
+  .sidebar-user-info,
+  .sidebar-more {
+    display: none;
+  }
+
+
+  /* Avatar */
+
+  .sidebar-avatar {
+    width: 38px;
+
+    min-width: 38px;
+
+    height: 38px;
+  }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .sidebar {
+    width: 68px;
+
+    min-width: 68px;
+  }
+
+  .content-wrapper {
+    margin-left: 68px;
+  }
+
+  .sidebar-content {
+    padding-left: 7px;
+
+    padding-right: 7px;
+  }
+
+  .sidebar-link {
+    height: 43px;
+  }
+}

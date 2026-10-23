@@ -1,0 +1,489 @@
+/* ==================================================
+   STUDENT QUIZZES PAGE
+================================================== */
+
+.student-quizzes-page {
+  min-height: 100%;
+  padding: 30px;
+  background: #f8f9fc;
+  box-sizing: border-box;
+}
+
+/* ==================================================
+   LOADING
+================================================== */
+
+.student-quizzes-loading {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #633bea;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ==================================================
+   HEADER
+================================================== */
+
+.student-quizzes-header {
+  margin-bottom: 28px;
+}
+
+.student-quizzes-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: transparent;
+  color: #633bea;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 22px;
+}
+
+.student-quizzes-back-btn:hover {
+  color: #4f2ed0;
+}
+
+.student-quizzes-heading p {
+  margin: 0 0 7px;
+  color: #6d3df5;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+
+.student-quizzes-heading h1 {
+  margin: 0;
+  color: #1d1d2c;
+  font-size: 30px;
+  font-weight: 750;
+}
+
+.student-quizzes-heading span {
+  display: block;
+  margin-top: 8px;
+  color: #73758a;
+  font-size: 14px;
+}
+
+/* ==================================================
+   SUMMARY
+================================================== */
+
+.student-quiz-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 32px;
+  width: 100%;
+}
+
+.student-quiz-summary-card {
+  width: 100%;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #ececf4;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 5px 18px rgba(31, 30, 45, 0.04);
+}
+
+.student-quiz-summary-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  background: #f1edff;
+  color: #633bea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.student-quiz-summary-card span {
+  display: block;
+  color: #77798d;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.student-quiz-summary-card strong {
+  display: block;
+  color: #242438;
+  font-size: 16px;
+}
+
+/* ==================================================
+   SECTION
+================================================== */
+
+.student-quizzes-section {
+  margin-top: 5px;
+  width: 100%;
+}
+
+.student-quizzes-section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 18px;
+}
+
+.student-quizzes-section-heading p {
+  margin: 0 0 6px;
+  color: #6d3df5;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+}
+
+.student-quizzes-section-heading h2 {
+  margin: 0;
+  color: #242438;
+  font-size: 22px;
+}
+
+.student-quizzes-section-heading > span {
+  color: #77798d;
+  font-size: 13px;
+}
+
+/* ==================================================
+   QUIZ GRID
+================================================== */
+
+.student-quiz-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  align-items: stretch;
+  box-sizing: border-box;
+}
+
+/* ==================================================
+   QUIZ CARD
+================================================== */
+
+.student-quiz-card {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #e9e9f2;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 18px rgba(31, 30, 45, 0.045);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.student-quiz-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 9px 24px rgba(31, 30, 45, 0.08);
+}
+
+/* ==================================================
+   QUIZ CARD TOP
+================================================== */
+
+.student-quiz-card-top {
+  padding: 15px 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.student-quiz-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  background: #f1edff;
+  color: #633bea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.student-quiz-published {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #16834b;
+  background: #eaf8f1;
+  padding: 5px 8px;
+  border-radius: 18px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* ==================================================
+   QUIZ CARD CONTENT
+================================================== */
+
+.student-quiz-card-content {
+  padding: 13px 16px 16px;
+}
+
+.student-quiz-card-content h3 {
+  margin: 0;
+  color: #242438;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.student-quiz-card-content > p {
+  margin: 7px 0 13px;
+  color: #77798d;
+  font-size: 12px;
+  line-height: 1.5;
+  min-height: 36px;
+}
+
+/* ==================================================
+   QUIZ INFO
+================================================== */
+
+.student-quiz-info {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  flex-wrap: wrap;
+  padding-bottom: 11px;
+  border-bottom: 1px solid #eeeeF5;
+}
+
+.student-quiz-info span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #67697c;
+  font-size: 11px;
+}
+
+.student-quiz-info svg {
+  color: #633bea;
+}
+
+/* ==================================================
+   PASSING SCORE
+================================================== */
+
+.student-quiz-pass {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 0;
+}
+
+.student-quiz-pass span {
+  color: #77798d;
+  font-size: 11px;
+}
+
+.student-quiz-pass strong {
+  color: #633bea;
+  font-size: 13px;
+}
+
+/* ==================================================
+   START BUTTON
+================================================== */
+
+.student-start-quiz-btn {
+  width: 100%;
+  min-height: 40px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 9px;
+  background: #633bea;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.student-start-quiz-btn:hover {
+  background: #5430cf;
+}
+
+.student-start-quiz-btn:active {
+  transform: scale(0.98);
+}
+
+/* ==================================================
+   EMPTY
+================================================== */
+
+.student-no-quizzes {
+  width: 100%;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #e9e9f2;
+  border-radius: 18px;
+  padding: 55px 25px;
+  text-align: center;
+}
+
+.student-no-quizzes-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  margin: 0 auto 15px;
+  background: #f1edff;
+  color: #633bea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.student-no-quizzes h3 {
+  margin: 0;
+  color: #242438;
+  font-size: 18px;
+}
+
+.student-no-quizzes p {
+  margin: 8px 0 0;
+  color: #77798d;
+  font-size: 13px;
+}
+
+/* ==================================================
+   ERROR
+================================================== */
+
+.student-quiz-error-card {
+  max-width: 560px;
+  margin: 80px auto;
+  background: #ffffff;
+  border: 1px solid #ececf4;
+  border-radius: 18px;
+  padding: 40px 30px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(31, 30, 45, 0.05);
+}
+
+.student-quiz-error-card > svg {
+  color: #d84b4b;
+  margin-bottom: 10px;
+}
+
+.student-quiz-error-card h2 {
+  margin: 0;
+  color: #242438;
+  font-size: 20px;
+}
+
+.student-quiz-error-card p {
+  color: #77798d;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 10px 0 22px;
+}
+
+.student-quiz-error-card button {
+  border: none;
+  background: #633bea;
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 11px 17px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* ==================================================
+   TABLET
+================================================== */
+
+@media (max-width: 1000px) {
+  .student-quiz-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media (max-width: 700px) {
+  .student-quizzes-page {
+    padding: 20px;
+  }
+
+  .student-quizzes-heading h1 {
+    font-size: 25px;
+  }
+
+  .student-quiz-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .student-quizzes-section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .student-quiz-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .student-quiz-card {
+    width: 100%;
+  }
+}
+
+/* ==================================================
+   SMALL MOBILE
+================================================== */
+
+@media (max-width: 480px) {
+  .student-quizzes-page {
+    padding: 16px;
+  }
+
+  .student-quiz-card-top {
+    padding: 14px 14px 0;
+  }
+
+  .student-quiz-card-content {
+    padding: 12px 14px 14px;
+  }
+
+  .student-quiz-info {
+    gap: 9px;
+  }
+
+  .student-quiz-card-content h3 {
+    font-size: 15px;
+  }
+
+  .student-start-quiz-btn {
+    min-height: 39px;
+  }
+}

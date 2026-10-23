@@ -1,0 +1,493 @@
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.site-footer {
+  width: 100%;
+
+  background: #ffffff;
+
+  color: #172033;
+
+  border-top: 1px solid #e8eaf2;
+
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+}
+
+
+/* =====================================================
+   FOOTER INNER
+===================================================== */
+
+.footer-inner {
+  width: 100%;
+  max-width: 1500px;
+
+  margin: 0 auto;
+
+  padding: 45px 50px 40px;
+
+  display: grid;
+
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+
+  gap: 70px;
+
+  box-sizing: border-box;
+}
+
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.footer-brand {
+  max-width: 380px;
+}
+
+
+/* =====================================================
+   FOOTER LOGO
+===================================================== */
+
+.footer-logo {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  color: #172033;
+
+  text-decoration: none;
+
+  font-family: "Inter", Arial, sans-serif;
+
+  font-size: 20px;
+
+  font-weight: 750;
+
+  transition: color 0.2s ease;
+}
+
+.footer-logo:hover {
+  color: #6d3df5;
+}
+
+
+/* =====================================================
+   LOGO MARK
+===================================================== */
+
+.footer-logo-mark {
+  width: 28px;
+  height: 28px;
+
+  border-radius: 8px;
+
+  background: linear-gradient(
+    135deg,
+    #6d3df5,
+    #8b5cf6
+  );
+
+  position: relative;
+
+  box-shadow:
+    0 5px 14px rgba(109, 61, 245, 0.18);
+}
+
+
+/* Small white design inside logo */
+
+.footer-logo-mark::before {
+  content: "";
+
+  position: absolute;
+
+  width: 15px;
+  height: 10px;
+
+  left: 6px;
+  top: 8px;
+
+  background: #ffffff;
+
+  transform: rotate(-12deg);
+
+  border-radius: 2px;
+}
+
+
+/* =====================================================
+   DESCRIPTION
+===================================================== */
+
+.footer-description {
+  margin: 16px 0 22px;
+
+  color: #64748b;
+
+  font-size: 13px;
+
+  line-height: 1.7;
+
+  max-width: 370px;
+}
+
+
+/* =====================================================
+   SOCIAL LINKS
+===================================================== */
+
+.footer-socials {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+}
+
+
+/* Social link */
+
+.footer-socials a {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #e4e7ef;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  color: #64748b;
+
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+/* Social hover */
+
+.footer-socials a:hover {
+  color: #6d3df5;
+
+  border-color: #cfc2ff;
+
+  background: #f1edff;
+
+  transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   FOOTER COLUMNS
+===================================================== */
+
+.footer-column {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 11px;
+}
+
+
+/* Column heading */
+
+.footer-column h3 {
+  margin: 0 0 7px;
+
+  color: #172033;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  line-height: 1.4;
+}
+
+
+/* Column links */
+
+.footer-column a {
+  width: fit-content;
+
+  color: #64748b;
+
+  text-decoration: none;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+/* Column link hover */
+
+.footer-column a:hover {
+  color: #6d3df5;
+
+  transform: translateX(3px);
+}
+
+
+/* =====================================================
+   FOOTER BOTTOM
+===================================================== */
+
+.footer-bottom {
+  width: 100%;
+
+  border-top: 1px solid #edf0f5;
+}
+
+
+/* =====================================================
+   FOOTER BOTTOM INNER
+===================================================== */
+
+.footer-bottom-inner {
+  width: 100%;
+  max-width: 1500px;
+
+  margin: 0 auto;
+
+  padding: 17px 50px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  box-sizing: border-box;
+}
+
+
+/* Bottom text */
+
+.footer-bottom p {
+  margin: 0;
+
+  color: #94a3b8;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+}
+
+
+/* Better learning */
+
+.footer-made span {
+  color: #6d3df5;
+
+  font-weight: 600;
+}
+
+
+/* =====================================================
+   FOCUS
+===================================================== */
+
+.footer-logo:focus-visible,
+.footer-socials a:focus-visible,
+.footer-column a:focus-visible {
+  outline: 2px solid #6d3df5;
+
+  outline-offset: 3px;
+
+  border-radius: 4px;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1100px) {
+
+  .footer-inner {
+    padding: 40px 35px;
+
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+
+    gap: 40px;
+  }
+
+  .footer-bottom-inner {
+    padding-left: 35px;
+
+    padding-right: 35px;
+  }
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 900px) {
+
+  .footer-inner {
+    grid-template-columns: 1.5fr 1fr 1fr;
+
+    gap: 40px;
+
+    padding: 40px 30px;
+  }
+
+
+  /* Brand takes full row */
+
+  .footer-brand {
+    grid-column: 1 / -1;
+
+    max-width: 520px;
+  }
+
+
+  .footer-bottom-inner {
+    padding-left: 30px;
+
+    padding-right: 30px;
+  }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+  .footer-inner {
+    padding: 40px 20px 30px;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 35px 25px;
+  }
+
+
+  .footer-brand {
+    grid-column: 1 / -1;
+
+    max-width: 100%;
+  }
+
+
+  .footer-description {
+    max-width: 100%;
+
+    font-size: 12px;
+  }
+
+
+  .footer-column {
+    gap: 10px;
+  }
+
+
+  .footer-column h3 {
+    font-size: 13px;
+  }
+
+
+  .footer-column a {
+    font-size: 12px;
+  }
+
+
+  /* Bottom */
+
+  .footer-bottom-inner {
+    padding: 16px 20px;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 7px;
+  }
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 420px) {
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+
+    gap: 30px;
+  }
+
+
+  .footer-brand {
+    grid-column: auto;
+  }
+
+
+  .footer-socials a {
+    width: 34px;
+
+    height: 34px;
+  }
+
+
+  .footer-bottom-inner {
+    padding-left: 16px;
+
+    padding-right: 16px;
+  }
+}
+
+
+/* =====================================================
+   VERY SMALL SCREEN
+===================================================== */
+
+@media (max-width: 320px) {
+
+  .footer-inner {
+    padding-left: 15px;
+
+    padding-right: 15px;
+  }
+
+
+  .footer-description {
+    font-size: 11px;
+  }
+
+
+  .footer-column a {
+    font-size: 11px;
+  }
+
+
+  .footer-bottom p {
+    font-size: 10px;
+  }
+}
