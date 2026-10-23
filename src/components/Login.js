@@ -323,9 +323,10 @@ const Login = () => {
                         {isLoading ? "Logging in..." : "Login"}
                     </button>
 
-                    
-<div className="google-login-section">
-  <p className="google-login-text">Or continue with Google</p>
+ <div className="google-login-section">
+  <p className="google-login-text">
+    Or continue with Google
+  </p>
 
   <div className="google-login-button">
     <GoogleLogin
@@ -338,7 +339,7 @@ const Login = () => {
       text="continue_with"
       shape="rectangular"
       size="large"
-      width="100%"
+      width={430}
     />
   </div>
 </div>
