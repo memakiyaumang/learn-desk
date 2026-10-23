@@ -223,3 +223,29 @@
     }
 
 }
+
+
+/* Google Register UI Alignment */
+.google-register-section {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 26px;
+}
+
+.google-register-text {
+  text-align: center;
+  margin: 0 0 14px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.google-register-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.google-register-button iframe {
+  max-width: 100% !important;
+}

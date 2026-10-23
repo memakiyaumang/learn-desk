@@ -175,3 +175,32 @@ body {
     color: #5b2fe0;
     text-decoration: underline;
 }
+
+
+/* Google Login Section */
+.google-login-section {
+  width: 100%;
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+.google-login-text {
+  margin: 0 0 10px;
+  padding: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #333;
+  text-align: center;
+}
+
+.google-login-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.google-login-button > div {
+  width: 100% !important;
+  max-width: 100% !important;
+}

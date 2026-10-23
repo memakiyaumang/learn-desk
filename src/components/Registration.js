@@ -1,14 +1,16 @@
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
 import "../css/Registration.css";
+
+const API_URL =
+    "https://project-final-backend-oeh1.onrender.com/api";
 
 const Registration = () => {
     const [role, setRole] = useState("student");
-
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [qualification, setQualification] = useState("");
-    const [specialization, setSpecialization] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -16,19 +18,19 @@ const Registration = () => {
     const [successMessage, setSuccessMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
+    // Reset form messages
+    const clearMessages = () => {
+        setErrors({});
+        setSuccessMessage("");
+    };
+
+    // NORMAL REGISTRATION
     const handleRegister = async (e) => {
         e.preventDefault();
 
         const newErrors = {};
-
         const trimmedName = name.trim();
         const trimmedEmail = email.trim();
-        const trimmedQualification = qualification.trim();
-        const trimmedSpecialization = specialization.trim();
-
-        /* ================================
-           NAME VALIDATION
-        ================================= */
 
         if (!trimmedName) {
             newErrors.name = "Full name is required.";
@@ -36,10 +38,6 @@ const Registration = () => {
             newErrors.name =
                 "Name must be at least 2 characters.";
         }
-
-        /* ================================
-           EMAIL VALIDATION
-        ================================= */
 
         if (!trimmedEmail) {
             newErrors.email = "Email is required.";
@@ -50,37 +48,12 @@ const Registration = () => {
                 "Please enter a valid email address.";
         }
 
-        /* ================================
-           FACULTY VALIDATION
-        ================================= */
-
-        if (role === "faculty") {
-            if (!trimmedQualification) {
-                newErrors.qualification =
-                    "Qualification is required.";
-            }
-
-            if (!trimmedSpecialization) {
-                newErrors.specialization =
-                    "Specialization is required.";
-            }
-        }
-
-        /* ================================
-           PASSWORD VALIDATION
-        ================================= */
-
         if (!password) {
-            newErrors.password =
-                "Password is required.";
+            newErrors.password = "Password is required.";
         } else if (password.length < 6) {
             newErrors.password =
                 "Password must be at least 6 characters.";
         }
-
-        /* ================================
-           CONFIRM PASSWORD
-        ================================= */
 
         if (!confirmPassword) {
             newErrors.confirmPassword =
@@ -90,31 +63,19 @@ const Registration = () => {
                 "Passwords do not match.";
         }
 
-        /* ================================
-           STOP IF VALIDATION ERROR
-        ================================= */
-
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
             setSuccessMessage("");
             return;
         }
 
-        /* ================================
-           CLEAR OLD ERRORS
-        ================================= */
-
         setErrors({});
         setSuccessMessage("");
         setIsLoading(true);
 
-        /* ================================
-           REGISTER WITH BACKEND
-        ================================= */
-
         try {
             const response = await fetch(
-                "https://project-final-backend-oeh1.onrender.com/api/register",
+                `${API_URL}/register`,
                 {
                     method: "POST",
                     headers: {
@@ -123,209 +84,165 @@ const Registration = () => {
                     body: JSON.stringify({
                         name: trimmedName,
                         email: trimmedEmail,
-                        password: password,
-                        role: role,
-                        qualification:
-                            role === "faculty"
-                                ? trimmedQualification
-                                : "",
-                        specialization:
-                            role === "faculty"
-                                ? trimmedSpecialization
-                                : "",
+                        password,
+                        role,
                     }),
                 }
             );
 
             const data = await response.json();
 
-            /* ================================
-               SUCCESS
-            ================================= */
-
-            if (response.status === 200 && data.success) {
-                setSuccessMessage(
-                    role === "student"
-                        ? "Student registration successful! Your account is pending admin approval."
-                        : "Faculty registration successful! Your account is pending admin approval."
+            if (!response.ok || !data.success) {
+                throw new Error(
+                    data.message ||
+                    "Registration failed. Please try again."
                 );
-
-                /* ================================
-                   CLEAR FORM
-                ================================= */
-
-                setName("");
-                setEmail("");
-                setQualification("");
-                setSpecialization("");
-                setPassword("");
-                setConfirmPassword("");
-                setErrors({});
             }
 
-            /* ================================
-               BACKEND ERROR
-            ================================= */
-
-            else {
-                if (
-                    data.message?.toLowerCase().includes("email")
-                ) {
-                    setErrors({
-                        email: data.message,
-                    });
-                } else {
-                    setErrors({
-                        general:
-                            data.message ||
-                            "Registration failed. Please try again.",
-                    });
-                }
-
-                setSuccessMessage("");
-            }
-
-        } catch (error) {
-            console.error(
-                "Registration Error:",
-                error
+            setSuccessMessage(
+                `${role === "student" ? "Student" : "Faculty"} registration successful! Your account is pending admin approval.`
             );
+
+            setName("");
+            setEmail("");
+            setPassword("");
+            setConfirmPassword("");
+            setErrors({});
+        } catch (error) {
+            console.error("Registration Error:", error);
 
             setErrors({
                 general:
+                    error.message ||
                     "Unable to connect to server. Please try again.",
             });
-
-            setSuccessMessage("");
-
         } finally {
             setIsLoading(false);
         }
     };
 
-    /* ================================
-       FIELD CHANGE HANDLERS
-    ================================= */
+    // GOOGLE REGISTRATION
+    const handleGoogleSuccess = async (googleResponse) => {
+        if (!googleResponse.credential) {
+            setErrors({
+                general:
+                    "Google did not return a credential. Please try again.",
+            });
+            return;
+        }
 
+        setErrors({});
+        setSuccessMessage("");
+        setIsLoading(true);
+
+        try {
+            const response = await fetch(
+                `${API_URL}/google-auth`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        credential: googleResponse.credential,
+                        role,
+                        mode: "register",
+                    }),
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+                throw new Error(
+                    data.message ||
+                    "Google registration failed. Please try again."
+                );
+            }
+
+            setSuccessMessage(
+                data.message ||
+                `${role === "student" ? "Student" : "Faculty"} Google registration successful! Your account is pending admin approval.`
+            );
+
+            setName("");
+            setEmail("");
+            setPassword("");
+            setConfirmPassword("");
+            setErrors({});
+        } catch (error) {
+            console.error("Google Registration Error:", error);
+
+            setErrors({
+                general:
+                    error.message ||
+                    "Unable to connect to server. Please try again.",
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    // INPUT HANDLERS
     const handleNameChange = (e) => {
         setName(e.target.value);
-
-        if (errors.name || errors.general) {
-            setErrors((prev) => ({
-                ...prev,
-                name: "",
-                general: "",
-            }));
-        }
+        setErrors((prev) => ({
+            ...prev,
+            name: "",
+            general: "",
+        }));
+        setSuccessMessage("");
     };
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
-
-        if (errors.email || errors.general) {
-            setErrors((prev) => ({
-                ...prev,
-                email: "",
-                general: "",
-            }));
-        }
-    };
-
-    const handleQualificationChange = (e) => {
-        setQualification(e.target.value);
-
-        if (errors.qualification || errors.general) {
-            setErrors((prev) => ({
-                ...prev,
-                qualification: "",
-                general: "",
-            }));
-        }
-    };
-
-    const handleSpecializationChange = (e) => {
-        setSpecialization(e.target.value);
-
-        if (errors.specialization || errors.general) {
-            setErrors((prev) => ({
-                ...prev,
-                specialization: "",
-                general: "",
-            }));
-        }
+        setErrors((prev) => ({
+            ...prev,
+            email: "",
+            general: "",
+        }));
+        setSuccessMessage("");
     };
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
-
-        if (errors.password || errors.general) {
-            setErrors((prev) => ({
-                ...prev,
-                password: "",
-                general: "",
-            }));
-        }
-
-        if (errors.confirmPassword) {
-            setErrors((prev) => ({
-                ...prev,
-                confirmPassword: "",
-            }));
-        }
+        setErrors((prev) => ({
+            ...prev,
+            password: "",
+            confirmPassword: "",
+            general: "",
+        }));
+        setSuccessMessage("");
     };
 
     const handleConfirmPasswordChange = (e) => {
         setConfirmPassword(e.target.value);
-
-        if (errors.confirmPassword || errors.general) {
-            setErrors((prev) => ({
-                ...prev,
-                confirmPassword: "",
-                general: "",
-            }));
-        }
+        setErrors((prev) => ({
+            ...prev,
+            confirmPassword: "",
+            general: "",
+        }));
+        setSuccessMessage("");
     };
-
-    /* ================================
-       ROLE CHANGE
-    ================================= */
 
     const handleRoleChange = (e) => {
         setRole(e.target.value);
-
         setErrors({});
         setSuccessMessage("");
-
-        // Clear faculty fields when switching
-        // to student
-        if (e.target.value === "student") {
-            setQualification("");
-            setSpecialization("");
-        }
     };
 
     return (
         <div className="registration-container">
-
             <div className="registration-box">
-
                 <h2>
                     {role === "student"
                         ? "Student Registration"
                         : "Faculty Registration"}
                 </h2>
 
-                <form
-                    onSubmit={handleRegister}
-                    noValidate
-                >
-
-                    {/* =========================
-                        ROLE
-                    ========================== */}
-
+                <form onSubmit={handleRegister} noValidate>
+                    {/* ROLE */}
                     <div className="input-group">
-
                         <label htmlFor="register-role">
                             Register As
                         </label>
@@ -334,25 +251,19 @@ const Registration = () => {
                             id="register-role"
                             value={role}
                             onChange={handleRoleChange}
+                            disabled={isLoading}
                         >
                             <option value="student">
                                 Student
                             </option>
-
                             <option value="faculty">
                                 Faculty
                             </option>
                         </select>
-
                     </div>
 
-
-                    {/* =========================
-                        FULL NAME
-                    ========================== */}
-
+                    {/* FULL NAME */}
                     <div className="input-group">
-
                         <label htmlFor="register-name">
                             Full Name
                         </label>
@@ -364,10 +275,9 @@ const Registration = () => {
                             value={name}
                             onChange={handleNameChange}
                             className={
-                                errors.name
-                                    ? "input-error"
-                                    : ""
+                                errors.name ? "input-error" : ""
                             }
+                            disabled={isLoading}
                         />
 
                         {errors.name && (
@@ -375,16 +285,10 @@ const Registration = () => {
                                 {errors.name}
                             </p>
                         )}
-
                     </div>
 
-
-                    {/* =========================
-                        EMAIL
-                    ========================== */}
-
+                    {/* EMAIL */}
                     <div className="input-group">
-
                         <label htmlFor="register-email">
                             Email Address
                         </label>
@@ -396,10 +300,9 @@ const Registration = () => {
                             value={email}
                             onChange={handleEmailChange}
                             className={
-                                errors.email
-                                    ? "input-error"
-                                    : ""
+                                errors.email ? "input-error" : ""
                             }
+                            disabled={isLoading}
                         />
 
                         {errors.email && (
@@ -407,88 +310,10 @@ const Registration = () => {
                                 {errors.email}
                             </p>
                         )}
-
                     </div>
 
-
-                    {/* =========================
-                        FACULTY FIELDS
-                    ========================== */}
-
-                    {role === "faculty" && (
-                        <>
-                            <div className="input-group">
-
-                                <label htmlFor="qualification">
-                                    Qualification
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="qualification"
-                                    placeholder="e.g. MCA, M.Tech, Ph.D."
-                                    value={qualification}
-                                    onChange={
-                                        handleQualificationChange
-                                    }
-                                    className={
-                                        errors.qualification
-                                            ? "input-error"
-                                            : ""
-                                    }
-                                />
-
-                                {errors.qualification && (
-                                    <p className="field-error">
-                                        {
-                                            errors.qualification
-                                        }
-                                    </p>
-                                )}
-
-                            </div>
-
-
-                            <div className="input-group">
-
-                                <label htmlFor="specialization">
-                                    Specialization
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="specialization"
-                                    placeholder="e.g. AI & ML, Web Development"
-                                    value={specialization}
-                                    onChange={
-                                        handleSpecializationChange
-                                    }
-                                    className={
-                                        errors.specialization
-                                            ? "input-error"
-                                            : ""
-                                    }
-                                />
-
-                                {errors.specialization && (
-                                    <p className="field-error">
-                                        {
-                                            errors.specialization
-                                        }
-                                    </p>
-                                )}
-
-                            </div>
-                        </>
-                    )}
-
-
-                    {/* =========================
-                        PASSWORD
-                    ========================== */}
-
+                    {/* PASSWORD */}
                     <div className="input-group">
-
                         <label htmlFor="register-password">
                             Password
                         </label>
@@ -500,10 +325,9 @@ const Registration = () => {
                             value={password}
                             onChange={handlePasswordChange}
                             className={
-                                errors.password
-                                    ? "input-error"
-                                    : ""
+                                errors.password ? "input-error" : ""
                             }
+                            disabled={isLoading}
                         />
 
                         {errors.password && (
@@ -511,16 +335,10 @@ const Registration = () => {
                                 {errors.password}
                             </p>
                         )}
-
                     </div>
 
-
-                    {/* =========================
-                        CONFIRM PASSWORD
-                    ========================== */}
-
+                    {/* CONFIRM PASSWORD */}
                     <div className="input-group">
-
                         <label htmlFor="confirm-password">
                             Confirm Password
                         </label>
@@ -530,14 +348,13 @@ const Registration = () => {
                             id="confirm-password"
                             placeholder="Confirm your password"
                             value={confirmPassword}
-                            onChange={
-                                handleConfirmPasswordChange
-                            }
+                            onChange={handleConfirmPasswordChange}
                             className={
                                 errors.confirmPassword
                                     ? "input-error"
                                     : ""
                             }
+                            disabled={isLoading}
                         />
 
                         {errors.confirmPassword && (
@@ -545,36 +362,26 @@ const Registration = () => {
                                 {errors.confirmPassword}
                             </p>
                         )}
-
                     </div>
 
-
-                    {/* =========================
-                        GENERAL ERROR
-                    ========================== */}
-
+                    {/* GENERAL ERROR */}
                     {errors.general && (
-                        <p className="field-error">
+                        <p className="field-error" role="alert">
                             {errors.general}
                         </p>
                     )}
 
-
-                    {/* =========================
-                        SUCCESS MESSAGE
-                    ========================== */}
-
+                    {/* SUCCESS MESSAGE */}
                     {successMessage && (
-                        <p className="success-message">
+                        <p
+                            className="success-message"
+                            role="status"
+                        >
                             {successMessage}
                         </p>
                     )}
 
-
-                    {/* =========================
-                        REGISTER BUTTON
-                    ========================== */}
-
+                    {/* REGISTER BUTTON */}
                     <button
                         type="submit"
                         className="register-btn"
@@ -585,27 +392,42 @@ const Registration = () => {
                             : "Register"}
                     </button>
 
+                    {/* GOOGLE REGISTRATION */}
+                    
+<div className="google-register-section">
+  <p className="google-register-text">
+    Or continue with Google
+  </p>
 
-                    {/* =========================
-                        LOGIN LINK
-                    ========================== */}
+  <div className="google-register-button">
+    <GoogleLogin
+      onSuccess={handleGoogleSuccess}
+      onError={() =>
+        setErrors({
+          general: "Google registration failed. Please try again.",
+        })
+      }
+      text="continue_with"
+      shape="rectangular"
+      size="large"
+      width={430}
+    />
+  </div>
+</div>
 
+
+                    {/* LOGIN LINK */}
                     <p className="switch-form">
                         Already have an account?
                     </p>
 
                     <div className="login-link">
-
                         <Link to="/login">
                             Login here
                         </Link>
-
                     </div>
-
                 </form>
-
             </div>
-
         </div>
     );
 };

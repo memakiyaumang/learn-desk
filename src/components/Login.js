@@ -1,6 +1,11 @@
+
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
 import "../css/Login.css";
+
+const API_URL =
+    "https://project-final-backend-oeh1.onrender.com/api";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -11,19 +16,100 @@ const Login = () => {
 
     const navigate = useNavigate();
 
-    // ============================================
-    // LOGIN
-    // ============================================
+    // SAVE SESSION AND REDIRECT
+    const completeLogin = (data) => {
+        const userData = data.data || data.user;
 
+        if (!data.token || !userData) {
+            throw new Error(
+                "Authentication token or user data was not received."
+            );
+        }
+
+        if (userData.role !== role) {
+            throw new Error(
+                `This account is registered as ${
+                    userData.role || "another role"
+                }. Please select the correct role.`
+            );
+        }
+
+        const accountStatus = String(
+            userData.status || "pending"
+        ).trim().toLowerCase();
+
+        if (accountStatus === "pending") {
+            throw new Error(
+                `Your ${role} account is pending admin approval.`
+            );
+        }
+
+        if (accountStatus === "rejected") {
+            throw new Error(
+                `Your ${role} account has been rejected by the admin.`
+            );
+        }
+
+        if (accountStatus !== "approved") {
+            throw new Error(
+                `Your ${role} account is not approved yet.`
+            );
+        }
+
+        const userName =
+            userData.fullName ||
+            userData.name ||
+            userData.username ||
+            userData.userName ||
+            "";
+
+        const loginData = {
+            id:
+                userData.id ||
+                userData._id ||
+                userData.userId ||
+                "",
+            name: userName,
+            email: userData.email || email.trim(),
+            role: userData.role,
+            qualification: userData.qualification || "",
+            specialization: userData.specialization || "",
+            status: userData.status,
+            token: data.token,
+        };
+
+        // Keep student and faculty sessions independent.
+        localStorage.removeItem("token");
+
+        if (role === "student") {
+            localStorage.setItem("studentToken", data.token);
+            sessionStorage.setItem(
+                "studentSession",
+                JSON.stringify(loginData)
+            );
+        } else {
+            localStorage.setItem("facultyToken", data.token);
+            sessionStorage.setItem(
+                "facultySession",
+                JSON.stringify(loginData)
+            );
+        }
+
+        window.dispatchEvent(new Event("userLoginChanged"));
+
+        setErrors({});
+
+        navigate(role === "student" ? "/" : "/faculty", {
+            replace: true,
+        });
+    };
+
+    // EMAIL AND PASSWORD LOGIN
     const handleLogin = async (e) => {
         e.preventDefault();
 
         const newErrors = {};
         const trimmedEmail = email.trim();
-
-        // ============================================
-        // FRONTEND VALIDATION
-        // ============================================
 
         if (!trimmedEmail) {
             newErrors.email = "Email is required.";
@@ -35,8 +121,7 @@ const Login = () => {
         }
 
         if (!password) {
-            newErrors.password =
-                "Password is required.";
+            newErrors.password = "Password is required.";
         }
 
         if (Object.keys(newErrors).length > 0) {
@@ -48,358 +133,121 @@ const Login = () => {
         setIsLoading(true);
 
         try {
-            // ============================================
-            // LOGIN API
-            // ============================================
+            const response = await fetch(`${API_URL}/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: trimmedEmail,
+                    password,
+                    role,
+                }),
+            });
 
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+                throw new Error(
+                    data.message || "Invalid email or password."
+                );
+            }
+
+            completeLogin(data);
+        } catch (error) {
+            console.error("Login Error:", error);
+
+            setErrors({
+                password:
+                    error.message ||
+                    "Unable to connect to server. Please try again.",
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    // GOOGLE LOGIN
+    const handleGoogleSuccess = async (googleResponse) => {
+        if (!googleResponse.credential) {
+            setErrors({
+                password: "Google did not return a credential.",
+            });
+            return;
+        }
+
+        setErrors({});
+        setIsLoading(true);
+
+        try {
             const response = await fetch(
-                "https://project-final-backend-oeh1.onrender.com/api/login",
+                `${API_URL}/google-auth`,
                 {
                     method: "POST",
-
                     headers: {
                         "Content-Type": "application/json",
                     },
-
                     body: JSON.stringify({
-                        email: trimmedEmail,
-                        password: password,
-                        role: role,
+                        credential: googleResponse.credential,
+                        role,
+                        mode: "login",
                     }),
                 }
             );
 
             const data = await response.json();
 
-            // ============================================
-            // LOGIN FAILED
-            // ============================================
-
             if (!response.ok || !data.success) {
-                setErrors({
-                    password:
-                        data.message ||
-                        "Invalid email or password.",
-                });
-
-                setIsLoading(false);
-                return;
-            }
-
-            // ============================================
-            // CHECK JWT TOKEN
-            // ============================================
-
-            if (!data.token) {
-                setErrors({
-                    password:
-                        "Login successful, but authentication token was not received.",
-                });
-
-                setIsLoading(false);
-                return;
-            }
-
-            // ============================================
-            // ROLE CHECK
-            // ============================================
-
-            if (
-                !data.data ||
-                data.data.role !== role
-            ) {
-                setErrors({
-                    password:
-                        `This account is registered as ${
-                            data.data?.role || "another role"
-                        }.`,
-                });
-
-                setIsLoading(false);
-                return;
-            }
-
-            // ============================================
-            // APPROVAL CHECK
-            // ============================================
-
-            const accountStatus = String(
-                data.data.status || "pending"
-            )
-                .trim()
-                .toLowerCase();
-
-            if (accountStatus === "pending") {
-                setErrors({
-                    password:
-                        `Your ${role} account is pending admin approval.`,
-                });
-
-                setIsLoading(false);
-                return;
-            }
-
-            if (accountStatus === "rejected") {
-                setErrors({
-                    password:
-                        `Your ${role} account has been rejected by the admin.`,
-                });
-
-                setIsLoading(false);
-                return;
-            }
-
-            if (accountStatus !== "approved") {
-                setErrors({
-                    password:
-                        `Your ${role} account is not approved yet.`,
-                });
-
-                setIsLoading(false);
-                return;
-            }
-
-            // ============================================
-            // USER NAME
-            // ============================================
-
-            const userName =
-                data.data.fullName ||
-                data.data.name ||
-                data.data.username ||
-                data.data.userName ||
-                "";
-
-            // ============================================
-            // LOGIN DATA
-            // ============================================
-
-            const loginData = {
-                id:
-                    data.data.id ||
-                    data.data._id ||
-                    data.data.userId ||
-                    "",
-
-                name: userName,
-
-                email:
-                    data.data.email ||
-                    trimmedEmail,
-
-                role:
-                    data.data.role,
-
-                qualification:
-                    data.data.qualification || "",
-
-                specialization:
-                    data.data.specialization || "",
-
-                status:
-                    data.data.status,
-
-                // JWT token is also stored inside
-                // the role-specific session.
-                token:
-                    data.token,
-            };
-
-            // ============================================
-            // DO NOT CLEAR STUDENT/FACULTY SESSION
-            // ============================================
-            //
-            // Student and Faculty can be logged in
-            // at the same time.
-            //
-            // Therefore:
-            //
-            // Student login:
-            // - Keep facultySession
-            // - Keep facultyToken
-            //
-            // Faculty login:
-            // - Keep studentSession
-            // - Keep studentToken
-            //
-            // ============================================
-
-            // ============================================
-            // CLEAR OLD SHARED TOKEN
-            // ============================================
-            // We no longer use localStorage.token
-
-            localStorage.removeItem("token");
-
-            // ============================================
-            // STORE ROLE-SPECIFIC JWT TOKEN
-            // ============================================
-
-            if (role === "student") {
-                // ========================================
-                // STUDENT LOGIN
-                // ========================================
-                //
-                // Store student token.
-                //
-                // IMPORTANT:
-                // Do NOT remove facultyToken.
-                // ========================================
-
-                localStorage.setItem(
-                    "studentToken",
-                    data.token
-                );
-
-                // Store student session.
-                //
-                // IMPORTANT:
-                // Do NOT remove facultySession.
-                sessionStorage.setItem(
-                    "studentSession",
-                    JSON.stringify(loginData)
+                throw new Error(
+                    data.message ||
+                    "Google login failed. Please try again."
                 );
             }
 
-            if (role === "faculty") {
-                // ========================================
-                // FACULTY LOGIN
-                // ========================================
-                //
-                // Store faculty token.
-                //
-                // IMPORTANT:
-                // Do NOT remove studentToken.
-                // ========================================
-
-                localStorage.setItem(
-                    "facultyToken",
-                    data.token
-                );
-
-                // Store faculty session.
-                //
-                // IMPORTANT:
-                // Do NOT remove studentSession.
-                sessionStorage.setItem(
-                    "facultySession",
-                    JSON.stringify(loginData)
-                );
-            }
-
-            // ============================================
-            // LOGIN EVENT
-            // ============================================
-
-            window.dispatchEvent(
-                new Event("userLoginChanged")
-            );
-
-            setErrors({});
-
-            // ============================================
-            // ROLE BASED REDIRECT
-            // ============================================
-
-            if (role === "student") {
-                navigate("/", {
-                    replace: true,
-                });
-            }
-
-            if (role === "faculty") {
-                navigate("/faculty", {
-                    replace: true,
-                });
-            }
+            completeLogin(data);
         } catch (error) {
-            console.error(
-                "Login Error:",
-                error
-            );
+            console.error("Google Login Error:", error);
 
             setErrors({
                 password:
+                    error.message ||
                     "Unable to connect to server. Please try again.",
             });
+        } finally {
+            setIsLoading(false);
         }
-
-        setIsLoading(false);
     };
 
-    // ============================================
-    // EMAIL CHANGE
-    // ============================================
-
+    // INPUT HANDLERS
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
-
-        if (errors.email) {
-            setErrors((prev) => ({
-                ...prev,
-                email: "",
-            }));
-        }
-
-        if (errors.password) {
-            setErrors((prev) => ({
-                ...prev,
-                password: "",
-            }));
-        }
+        setErrors({});
     };
-
-    // ============================================
-    // PASSWORD CHANGE
-    // ============================================
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
-
-        if (errors.password) {
-            setErrors((prev) => ({
-                ...prev,
-                password: "",
-            }));
-        }
+        setErrors({});
     };
-
-    // ============================================
-    // ROLE CHANGE
-    // ============================================
 
     const handleRoleChange = (e) => {
         setRole(e.target.value);
-
         setEmail("");
         setPassword("");
         setErrors({});
     };
 
-    // ============================================
     // UI
-    // ============================================
-
     return (
         <div className="login-container">
-
             <div className="login-box">
-
                 <h2>
                     {role === "student"
                         ? "Student Login"
                         : "Faculty Login"}
                 </h2>
 
-                <form
-                    onSubmit={handleLogin}
-                    noValidate
-                >
-
-                    {/* ROLE */}
-
+                <form onSubmit={handleLogin} noValidate>
                     <div className="input-group">
-
                         <label htmlFor="login-role">
                             Login As
                         </label>
@@ -408,22 +256,18 @@ const Login = () => {
                             id="login-role"
                             value={role}
                             onChange={handleRoleChange}
+                            disabled={isLoading}
                         >
                             <option value="student">
                                 Student
                             </option>
-
                             <option value="faculty">
                                 Faculty
                             </option>
                         </select>
-
                     </div>
 
-                    {/* EMAIL */}
-
                     <div className="input-group">
-
                         <label htmlFor="login-email">
                             Email Address
                         </label>
@@ -435,10 +279,9 @@ const Login = () => {
                             value={email}
                             onChange={handleEmailChange}
                             className={
-                                errors.email
-                                    ? "input-error"
-                                    : ""
+                                errors.email ? "input-error" : ""
                             }
+                            disabled={isLoading}
                         />
 
                         {errors.email && (
@@ -446,13 +289,9 @@ const Login = () => {
                                 {errors.email}
                             </p>
                         )}
-
                     </div>
 
-                    {/* PASSWORD */}
-
                     <div className="input-group">
-
                         <label htmlFor="login-password">
                             Password
                         </label>
@@ -464,10 +303,9 @@ const Login = () => {
                             value={password}
                             onChange={handlePasswordChange}
                             className={
-                                errors.password
-                                    ? "input-error"
-                                    : ""
+                                errors.password ? "input-error" : ""
                             }
+                            disabled={isLoading}
                         />
 
                         {errors.password && (
@@ -475,37 +313,48 @@ const Login = () => {
                                 {errors.password}
                             </p>
                         )}
-
                     </div>
-
-                    {/* LOGIN BUTTON */}
 
                     <button
                         type="submit"
                         className="login-btn"
                         disabled={isLoading}
                     >
-                        {isLoading
-                            ? "Logging in..."
-                            : "Login"}
+                        {isLoading ? "Logging in..." : "Login"}
                     </button>
+
+                    
+<div className="google-login-section">
+  <p className="google-login-text">Or continue with Google</p>
+
+  <div className="google-login-button">
+    <GoogleLogin
+      onSuccess={handleGoogleSuccess}
+      onError={() =>
+        setErrors({
+          general: "Google login failed. Please try again.",
+        })
+      }
+      text="continue_with"
+      shape="rectangular"
+      size="large"
+      width="100%"
+    />
+  </div>
+</div>
+
 
                     <p className="switch-form">
                         Don't have an account?
                     </p>
 
                     <div className="registration-links">
-
                         <Link to="/register">
                             Register here
                         </Link>
-
                     </div>
-
                 </form>
-
             </div>
-
         </div>
     );
 };
