@@ -702,6 +702,11 @@ useEffect(() => {
     }
   };
 
+useEffect(() => {
+  loadCourses();
+  loadFaculty();
+}, []);
+
   /* =========================
      INITIALS
   ========================= */
