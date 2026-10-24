@@ -2242,27 +2242,6 @@ const FacultyQuizManagement = () => {
           <div
             className={`faculty-nav-item ${
               isActive(
-                "/faculty/notifications"
-              )
-                ? "active"
-                : ""
-            }`}
-            onClick={
-              goToNotifications
-            }
-          >
-            <Bell
-              size={18}
-            />
-
-            <span>
-              Notifications
-            </span>
-          </div>
-
-          <div
-            className={`faculty-nav-item ${
-              isActive(
                 "/faculty/profile"
               )
                 ? "active"
