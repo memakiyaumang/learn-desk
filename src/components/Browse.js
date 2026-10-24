@@ -138,24 +138,69 @@ const Browse = () => {
         );
       }
 
-      const courseList = Array.isArray(result.data)
-        ? result.data
+const courseList = Array.isArray(result.data)
+  ? result.data
+  : [];
+
+const publishedCourses = courseList.filter((course) => {
+  const status = String(course.status || "")
+    .toLowerCase()
+    .trim();
+
+  return status === "published" || status === "publish";
+});
+
+const coursesWithLessons = await Promise.all(
+  publishedCourses.map(async (course) => {
+    const courseId = course._id || course.id;
+
+    try {
+      const lessonsResponse = await fetch(
+        `${API_BASE_URL}/api/get-lessons/${courseId}`,
+        {
+          method: "GET",
+          headers: getAuthHeaders(),
+        }
+      );
+
+      if (!lessonsResponse.ok) {
+        return {
+          ...course,
+          id: courseId,
+          lessons: 0,
+          totalLessons: 0,
+        };
+      }
+
+      const lessonsResult = await lessonsResponse.json();
+
+      const lessons = Array.isArray(lessonsResult.data)
+        ? lessonsResult.data
         : [];
 
-      const publishedCourses = courseList
-        .filter((course) => {
-          const status = String(
-            course.status || ""
-          ).toLowerCase();
+      return {
+        ...course,
+        id: courseId,
+        lessons: lessons.length,
+        totalLessons: lessons.length,
+      };
+    } catch (error) {
+      console.error(
+        `Error loading lessons for course ${courseId}:`,
+        error
+      );
 
-          return status === "published" || status === "publish";
-        })
-        .map((course) => ({
-          ...course,
-          id: course._id || course.id,
-        }));
+      return {
+        ...course,
+        id: courseId,
+        lessons: 0,
+        totalLessons: 0,
+      };
+    }
+  })
+);
 
-      setCourses(publishedCourses);
+setCourses(coursesWithLessons);
     } catch (error) {
       console.error("Error loading courses:", error);
       setCourses([]);
