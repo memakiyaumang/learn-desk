@@ -1,11 +1,9 @@
-
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import "../css/Login.css";
 
-const API_URL =
-    "https://project-final-backend-oeh1.onrender.com/api";
+const API_URL = "https://project-final-backend-oeh1.onrender.com/api";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -323,27 +321,30 @@ const Login = () => {
                         {isLoading ? "Logging in..." : "Login"}
                     </button>
 
- <div className="google-login-section">
-  <p className="google-login-text">
-    Or continue with Google
-  </p>
+                    {/* Show Google Login only for Students */}
+                    {role === "student" && (
+                        <div className="google-login-section">
+                            <p className="google-login-text">
+                                Or continue with Google
+                            </p>
 
-  <div className="google-login-button">
-    <GoogleLogin
-      onSuccess={handleGoogleSuccess}
-      onError={() =>
-        setErrors({
-          general: "Google login failed. Please try again.",
-        })
-      }
-      text="continue_with"
-      shape="rectangular"
-      size="large"
-      width={430}
-    />
-  </div>
-</div>
-
+                            <div className="google-login-button">
+                                <GoogleLogin
+                                    onSuccess={handleGoogleSuccess}
+                                    onError={() =>
+                                        setErrors({
+                                            general:
+                                                "Google login failed. Please try again.",
+                                        })
+                                    }
+                                    text="continue_with"
+                                    shape="rectangular"
+                                    size="large"
+                                    width={430}
+                                />
+                            </div>
+                        </div>
+                    )}
 
                     <p className="switch-form">
                         Don't have an account?
