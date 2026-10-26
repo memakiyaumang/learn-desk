@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -7,10 +7,12 @@ import {
   CheckCircle,
 } from "lucide-react";
 
+import html2canvas from "html2canvas";
 import "../css/CertificateView.css";
 
 const CertificateView = () => {
   const navigate = useNavigate();
+  const certificateRef = useRef(null);
 
   let certificate = null;
   let student = null;
@@ -50,225 +52,93 @@ const CertificateView = () => {
   };
 
   const handleDownload = async () => {
-    if (!certificate) return;
+    if (!certificate || !certificateRef.current) {
+      alert("Certificate is not ready to download. Please try again.");
+      return;
+    }
 
     try {
       const { jsPDF } = await import("jspdf");
+      const certificateElement = certificateRef.current;
+
+      // Wait for fonts and images inside the certificate to finish loading.
+      if (document.fonts?.ready) {
+        await document.fonts.ready;
+      }
+
+      const images = Array.from(certificateElement.querySelectorAll("img"));
+      await Promise.all(
+        images.map((image) => {
+          if (image.complete) return Promise.resolve();
+
+          return new Promise((resolve) => {
+            image.onload = resolve;
+            image.onerror = resolve;
+          });
+        })
+      );
+
+      const canvas = await html2canvas(certificateElement, {
+        scale: 3,
+        useCORS: true,
+        allowTaint: false,
+        backgroundColor: "#ffffff",
+        logging: false,
+        imageTimeout: 15000,
+        scrollX: 0,
+        scrollY: -window.scrollY,
+      });
+
+      const imageData = canvas.toDataURL("image/png");
 
       const pdf = new jsPDF({
         orientation: "landscape",
         unit: "mm",
         format: "a4",
+        compress: true,
       });
 
       const pageWidth = pdf.internal.pageSize.getWidth();
       const pageHeight = pdf.internal.pageSize.getHeight();
 
-      /* Background */
-      pdf.setFillColor(248, 250, 252);
-      pdf.rect(0, 0, pageWidth, pageHeight, "F");
+      // Fit the captured preview to A4 without stretching its proportions.
+      const imageRatio = canvas.width / canvas.height;
+      const pageRatio = pageWidth / pageHeight;
 
-      /* Outer border */
-      pdf.setDrawColor(109, 74, 255);
-      pdf.setLineWidth(1.5);
-      pdf.rect(8, 8, pageWidth - 16, pageHeight - 16);
+      let imageWidth = pageWidth;
+      let imageHeight = pageHeight;
+      let imageX = 0;
+      let imageY = 0;
 
-      /* Inner border */
-      pdf.setDrawColor(190, 175, 255);
-      pdf.setLineWidth(0.5);
-      pdf.rect(12, 12, pageWidth - 24, pageHeight - 24);
+      if (imageRatio > pageRatio) {
+        imageHeight = pageWidth / imageRatio;
+        imageY = (pageHeight - imageHeight) / 2;
+      } else {
+        imageWidth = pageHeight * imageRatio;
+        imageX = (pageWidth - imageWidth) / 2;
+      }
 
-      /* Award icon */
-      pdf.setFillColor(109, 74, 255);
-      pdf.circle(pageWidth / 2, 31, 8, "F");
-
-      pdf.setTextColor(255, 255, 255);
-      pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(13);
-
-      pdf.text("★", pageWidth / 2, 35, {
-        align: "center",
-      });
-
-      /* Main title */
-      pdf.setTextColor(45, 45, 65);
-      pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(27);
-
-      pdf.text("CERTIFICATE", pageWidth / 2, 53, {
-        align: "center",
-      });
-
-      pdf.setTextColor(109, 74, 255);
-      pdf.setFontSize(14);
-
-      pdf.text("OF COMPLETION", pageWidth / 2, 62, {
-        align: "center",
-      });
-
-      /* Presented to */
-      pdf.setTextColor(100, 100, 115);
-      pdf.setFont("helvetica", "normal");
-      pdf.setFontSize(11);
-
-      pdf.text(
-        "This certificate is proudly presented to",
-        pageWidth / 2,
-        76,
-        {
-          align: "center",
-        }
+      pdf.addImage(
+        imageData,
+        "PNG",
+        imageX,
+        imageY,
+        imageWidth,
+        imageHeight,
+        undefined,
+        "FAST"
       );
 
-      /* Student name */
-      pdf.setTextColor(30, 30, 45);
-      pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(24);
-
-      pdf.text(studentName, pageWidth / 2, 89, {
-        align: "center",
-      });
-
-      /* Completion text */
-      pdf.setTextColor(95, 95, 110);
-      pdf.setFont("helvetica", "normal");
-      pdf.setFontSize(11);
-
-      pdf.text(
-        "for successfully completing the course",
-        pageWidth / 2,
-        101,
-        {
-          align: "center",
-        }
-      );
-
-      /* Course */
-      pdf.setTextColor(55, 55, 75);
-      pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(18);
-
-      const courseTitleLines = pdf.splitTextToSize(
-        certificate.title || "Course",
-        220
-      );
-
-      pdf.text(courseTitleLines, pageWidth / 2, 114, {
-        align: "center",
-      });
-
-      const courseDetailY =
-        114 + courseTitleLines.length * 7;
-
-      pdf.setFont("helvetica", "normal");
-      pdf.setFontSize(10);
-      pdf.setTextColor(100, 100, 115);
-
-      pdf.text(
-        `Category: ${certificate.category || "General"}`,
-        pageWidth / 2,
-        courseDetailY + 5,
-        {
-          align: "center",
-        }
-      );
-
-      pdf.text(
-        `Instructor: ${certificate.instructor || "Faculty"}`,
-        pageWidth / 2,
-        courseDetailY + 12,
-        {
-          align: "center",
-        }
-      );
-
-      /* Divider */
-      const dividerY = courseDetailY + 21;
-
-      pdf.setDrawColor(220, 220, 230);
-      pdf.setLineWidth(0.4);
-
-      pdf.line(
-        55,
-        dividerY,
-        pageWidth - 55,
-        dividerY
-      );
-
-      /* Date */
-      pdf.setTextColor(90, 90, 105);
-      pdf.setFont("helvetica", "normal");
-      pdf.setFontSize(9);
-
-      pdf.text("COMPLETION DATE", 55, dividerY + 14);
-
-      pdf.setTextColor(45, 45, 65);
-      pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(11);
-
-      pdf.text(
-        formatDate(certificate.completedDate),
-        55,
-        dividerY + 21
-      );
-
-      /* Certificate ID */
-      pdf.setTextColor(90, 90, 105);
-      pdf.setFont("helvetica", "normal");
-      pdf.setFontSize(9);
-
-      pdf.text(
-        "CERTIFICATE ID",
-        pageWidth - 55,
-        dividerY + 14,
-        {
-          align: "right",
-        }
-      );
-
-      pdf.setTextColor(45, 45, 65);
-      pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(11);
-
-      pdf.text(
-        certificate.certificateId || "-",
-        pageWidth - 55,
-        dividerY + 21,
-        {
-          align: "right",
-        }
-      );
-
-      /* Platform */
-      pdf.setTextColor(109, 74, 255);
-      pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(12);
-
-      pdf.text(
-        "ONLINE LEARNING PLATFORM",
-        pageWidth / 2,
-        pageHeight - 25,
-        {
-          align: "center",
-        }
-      );
-
-      const safeFileName = (
-        certificate.title || "certificate"
-      )
+      const safeFileName = (certificate.title || "certificate")
         .replace(/[^a-z0-9]+/gi, "-")
         .replace(/^-+|-+$/g, "")
         .toLowerCase();
 
-      pdf.save(`${safeFileName}-certificate.pdf`);
+      pdf.save(`${safeFileName || "certificate"}-certificate.pdf`);
     } catch (error) {
-      console.error(
-        "Unable to download certificate:",
-        error
-      );
-
+      console.error("Unable to download certificate:", error);
       alert(
-        "Unable to generate certificate PDF. Please make sure jsPDF is installed."
+        "Unable to generate certificate PDF. Please check that html2canvas and jspdf are installed."
       );
     }
   };
@@ -299,10 +169,8 @@ const CertificateView = () => {
 
   return (
     <div className="certificate-view-page">
-
       {/* Top Bar */}
       <div className="certificate-view-topbar">
-
         <button
           type="button"
           className="certificate-back-button"
@@ -320,14 +188,11 @@ const CertificateView = () => {
           <Download size={17} />
           Download Certificate
         </button>
-
       </div>
 
-      {/* Certificate */}
-      <div className="certificate-paper">
-
+      {/* Certificate preview: this exact element is captured for the PDF */}
+      <div className="certificate-paper" ref={certificateRef}>
         <div className="certificate-paper-inner">
-
           {/* Top Award */}
           <div className="certificate-award-circle">
             <Award size={28} />
@@ -358,13 +223,12 @@ const CertificateView = () => {
           </p>
 
           <h3 className="certificate-course-title">
-            {certificate.title}
+            {certificate.title || "Course"}
           </h3>
 
           <div className="certificate-course-line" />
 
           <div className="certificate-course-info">
-
             <div>
               <span>
                 Category
@@ -384,25 +248,20 @@ const CertificateView = () => {
                 {certificate.instructor || "Faculty"}
               </strong>
             </div>
-
           </div>
 
           <div className="certificate-bottom-section">
-
             <div className="certificate-bottom-item">
               <span>
                 COMPLETION DATE
               </span>
 
               <strong>
-                {formatDate(
-                  certificate.completedDate
-                )}
+                {formatDate(certificate.completedDate)}
               </strong>
             </div>
 
             <div className="certificate-verified">
-
               <CheckCircle size={22} />
 
               <div>
@@ -414,7 +273,6 @@ const CertificateView = () => {
                   Course Completed
                 </small>
               </div>
-
             </div>
 
             <div className="certificate-bottom-item right">
@@ -423,20 +281,16 @@ const CertificateView = () => {
               </span>
 
               <strong>
-                {certificate.certificateId}
+                {certificate.certificateId || "-"}
               </strong>
             </div>
-
           </div>
 
           <div className="certificate-platform">
             ONLINE LEARNING PLATFORM
           </div>
-
         </div>
-
       </div>
-
     </div>
   );
 };

@@ -403,6 +403,36 @@ const CourseLearning = () => {
   };
 
   // ==================================================
+  // GET GOOGLE DRIVE VIDEO EMBED URL
+  // ==================================================
+  const getGoogleDriveEmbedUrl = (url) => {
+    if (!url) return "";
+
+    try {
+      const parsedUrl = new URL(String(url).trim());
+      const hostname = parsedUrl.hostname.toLowerCase().replace(/^www\./, "");
+
+      if (hostname !== "drive.google.com" && hostname !== "docs.google.com") {
+        return "";
+      }
+
+      const fileMatch = parsedUrl.pathname.match(/\/file\/d\/([^/]+)/);
+      if (fileMatch?.[1]) {
+        return `https://drive.google.com/file/d/${fileMatch[1]}/preview`;
+      }
+
+      const fileId = parsedUrl.searchParams.get("id");
+      if (fileId) {
+        return `https://drive.google.com/file/d/${fileId}/preview`;
+      }
+
+      return "";
+    } catch (error) {
+      return "";
+    }
+  };
+
+  // ==================================================
   // GET LESSON VIDEO URL
   // ==================================================
   const getLessonVideoUrl = (
@@ -1564,6 +1594,11 @@ const CourseLearning = () => {
       videoUrl
     );
 
+  const googleDriveEmbedUrl =
+    getGoogleDriveEmbedUrl(
+      videoUrl
+    );
+
   // ==================================================
   // DEBUG CURRENT LESSON
   // ==================================================
@@ -2150,6 +2185,17 @@ const CourseLearning = () => {
       }
       frameBorder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowFullScreen
+    />
+  ) : googleDriveEmbedUrl ? (
+    <iframe
+      src={googleDriveEmbedUrl}
+      title={
+        selectedLesson.title ||
+        "Google Drive Lesson Video"
+      }
+      frameBorder="0"
+      allow="autoplay; encrypted-media; picture-in-picture"
       allowFullScreen
     />
   ) : videoUrl ? (
