@@ -986,3 +986,11 @@
     }
 
 }
+
+.faculty-main {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    min-height: 100vh;
+    padding: 28px 32px 40px;
+    box-sizing: border-box;
+}

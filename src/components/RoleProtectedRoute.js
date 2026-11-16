@@ -2,58 +2,56 @@ import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
 const RoleProtectedRoute = ({ allowedRole }) => {
-
     let loggedInUser = null;
+    let token = null;
 
-    /* ================================
-       STUDENT SESSION
-    ================================= */
+    // =====================================
+    // STUDENT SESSION
+    // =====================================
 
     if (allowedRole === "student") {
-        const studentSession =
-            sessionStorage.getItem(
-                "studentSession"
+        try {
+            loggedInUser = JSON.parse(
+                sessionStorage.getItem("studentSession") || "null"
             );
 
-        if (studentSession) {
-            try {
-                loggedInUser =
-                    JSON.parse(studentSession);
-            } catch (error) {
-                sessionStorage.removeItem(
-                    "studentSession"
-                );
-            }
+            token =
+                loggedInUser?.token ||
+                localStorage.getItem("studentToken");
+        } catch (error) {
+            console.error("Invalid student session:", error);
+
+            sessionStorage.removeItem("studentSession");
+            loggedInUser = null;
         }
     }
 
-    /* ================================
-       FACULTY SESSION
-    ================================= */
+    // =====================================
+    // FACULTY SESSION
+    // =====================================
 
     if (allowedRole === "faculty") {
-        const facultySession =
-            sessionStorage.getItem(
-                "facultySession"
+        try {
+            loggedInUser = JSON.parse(
+                sessionStorage.getItem("facultySession") || "null"
             );
 
-        if (facultySession) {
-            try {
-                loggedInUser =
-                    JSON.parse(facultySession);
-            } catch (error) {
-                sessionStorage.removeItem(
-                    "facultySession"
-                );
-            }
+            token =
+                loggedInUser?.token ||
+                localStorage.getItem("facultyToken");
+        } catch (error) {
+            console.error("Invalid faculty session:", error);
+
+            sessionStorage.removeItem("facultySession");
+            loggedInUser = null;
         }
     }
 
-    /* ================================
-       NO LOGIN
-    ================================= */
+    // =====================================
+    // LOGIN CHECK
+    // =====================================
 
-    if (!loggedInUser) {
+    if (!loggedInUser || !token) {
         return (
             <Navigate
                 to="/login"
@@ -62,9 +60,9 @@ const RoleProtectedRoute = ({ allowedRole }) => {
         );
     }
 
-    /* ================================
-       WRONG ROLE
-    ================================= */
+    // =====================================
+    // ROLE CHECK
+    // =====================================
 
     if (loggedInUser.role !== allowedRole) {
 
@@ -80,7 +78,7 @@ const RoleProtectedRoute = ({ allowedRole }) => {
         if (loggedInUser.role === "student") {
             return (
                 <Navigate
-                    to="/"
+                    to="/dashboard"
                     replace
                 />
             );

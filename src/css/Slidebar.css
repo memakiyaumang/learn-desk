@@ -623,3 +623,12 @@
     height: 43px;
   }
 }
+
+.faculty-logout {
+  border: none;
+  background: none;
+  font: inherit;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}

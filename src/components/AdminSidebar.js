@@ -102,7 +102,7 @@ const AdminSidebar = () => {
       <nav className="admin-navigation">
 
         <p className="admin-menu-title">
-          MAIN MENU
+          {/* MAIN MENU */}
         </p>
 
 

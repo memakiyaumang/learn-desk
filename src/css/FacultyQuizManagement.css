@@ -312,7 +312,15 @@
 }
 
 .quiz-description {
-  min-height: 42px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  height: 45.5px;
+  min-height: 45.5px;
+
   margin: 0 0 19px;
   color: #777387;
   font-size: 13px;

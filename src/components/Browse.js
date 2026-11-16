@@ -1,3 +1,4 @@
+
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -8,6 +9,8 @@ import {
   Star,
   Clock,
   BookOpen,
+  ArrowLeft,
+  Sparkles,
 } from "lucide-react";
 
 import "../css/Browse.css";
@@ -90,6 +93,21 @@ const Browse = () => {
   };
 
   // --------------------------------------------------
+  // Handle Back Button
+  // --------------------------------------------------
+  const handleBack = () => {
+    setShowFilters(false);
+
+    // Browser history available hoy to previous page
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      // History na hoy to Student Dashboard
+      navigate("/dashboard");
+    }
+  };
+
+  // --------------------------------------------------
   // Load Published Courses From MongoDB
   // --------------------------------------------------
   const loadCourses = async () => {
@@ -138,69 +156,69 @@ const Browse = () => {
         );
       }
 
-const courseList = Array.isArray(result.data)
-  ? result.data
-  : [];
-
-const publishedCourses = courseList.filter((course) => {
-  const status = String(course.status || "")
-    .toLowerCase()
-    .trim();
-
-  return status === "published" || status === "publish";
-});
-
-const coursesWithLessons = await Promise.all(
-  publishedCourses.map(async (course) => {
-    const courseId = course._id || course.id;
-
-    try {
-      const lessonsResponse = await fetch(
-        `${API_BASE_URL}/api/get-lessons/${courseId}`,
-        {
-          method: "GET",
-          headers: getAuthHeaders(),
-        }
-      );
-
-      if (!lessonsResponse.ok) {
-        return {
-          ...course,
-          id: courseId,
-          lessons: 0,
-          totalLessons: 0,
-        };
-      }
-
-      const lessonsResult = await lessonsResponse.json();
-
-      const lessons = Array.isArray(lessonsResult.data)
-        ? lessonsResult.data
+      const courseList = Array.isArray(result.data)
+        ? result.data
         : [];
 
-      return {
-        ...course,
-        id: courseId,
-        lessons: lessons.length,
-        totalLessons: lessons.length,
-      };
-    } catch (error) {
-      console.error(
-        `Error loading lessons for course ${courseId}:`,
-        error
+      const publishedCourses = courseList.filter((course) => {
+        const status = String(course.status || "")
+          .toLowerCase()
+          .trim();
+
+        return status === "published" || status === "publish";
+      });
+
+      const coursesWithLessons = await Promise.all(
+        publishedCourses.map(async (course) => {
+          const courseId = course._id || course.id;
+
+          try {
+            const lessonsResponse = await fetch(
+              `${API_BASE_URL}/api/get-lessons/${courseId}`,
+              {
+                method: "GET",
+                headers: getAuthHeaders(),
+              }
+            );
+
+            if (!lessonsResponse.ok) {
+              return {
+                ...course,
+                id: courseId,
+                lessons: 0,
+                totalLessons: 0,
+              };
+            }
+
+            const lessonsResult = await lessonsResponse.json();
+
+            const lessons = Array.isArray(lessonsResult.data)
+              ? lessonsResult.data
+              : [];
+
+            return {
+              ...course,
+              id: courseId,
+              lessons: lessons.length,
+              totalLessons: lessons.length,
+            };
+          } catch (error) {
+            console.error(
+              `Error loading lessons for course ${courseId}:`,
+              error
+            );
+
+            return {
+              ...course,
+              id: courseId,
+              lessons: 0,
+              totalLessons: 0,
+            };
+          }
+        })
       );
 
-      return {
-        ...course,
-        id: courseId,
-        lessons: 0,
-        totalLessons: 0,
-      };
-    }
-  })
-);
-
-setCourses(coursesWithLessons);
+      setCourses(coursesWithLessons);
     } catch (error) {
       console.error("Error loading courses:", error);
       setCourses([]);
@@ -274,8 +292,6 @@ setCourses(coursesWithLessons);
         error.message || error
       );
 
-      // Keep the recommendation section available.
-      // The UI will use fallback suggestions if this API fails.
       setRecommendedCourses([]);
     } finally {
       setIsRecommendationLoading(false);
@@ -284,15 +300,12 @@ setCourses(coursesWithLessons);
 
   // --------------------------------------------------
   // Fallback Recommendations
-  // Used only when recommendation API returns no courses
   // --------------------------------------------------
   const displayRecommendedCourses = useMemo(() => {
     if (recommendedCourses.length > 0) {
       return recommendedCourses;
     }
 
-    // Fallback suggestions from published courses.
-    // Prefer higher ratings, then higher student counts.
     return [...courses]
       .sort((a, b) => {
         const ratingDifference =
@@ -457,9 +470,11 @@ setCourses(coursesWithLessons);
 
     return (
       <div className="course-card">
+
         {recommended && (
           <div className="recommended-badge">
-            🎯 Recommended For You
+            <Sparkles size={12} />
+            Recommended For You
           </div>
         )}
 
@@ -474,6 +489,7 @@ setCourses(coursesWithLessons);
         </div>
 
         <div className="course-body">
+
           <h3>{title}</h3>
 
           <p className="course-description">
@@ -485,26 +501,28 @@ setCourses(coursesWithLessons);
           </div>
 
           <div className="course-meta">
+
             <div className="course-meta-item">
-              <Clock size={12} />
+              <Clock size={13} />
               <span>{duration}</span>
             </div>
 
             <div className="course-meta-item">
-              <BookOpen size={12} />
+              <BookOpen size={13} />
               <span>{lessons} Lessons</span>
             </div>
 
             {rating > 0 && (
               <div className="course-rating">
                 <Star
-                  size={12}
+                  size={13}
                   fill="currentColor"
                   className="star"
                 />
                 <span>{rating}</span>
               </div>
             )}
+
           </div>
 
           <div className="course-price">
@@ -512,6 +530,7 @@ setCourses(coursesWithLessons);
           </div>
 
           <div className="course-footer">
+
             <span className="courses-count">
               {students.toLocaleString()} students
             </span>
@@ -520,7 +539,7 @@ setCourses(coursesWithLessons);
               type="button"
               className="course-button"
               onClick={() =>
-                navigate("/course-details", {
+                navigate(`/course-details/${courseId}`, {
                   state: {
                     course: {
                       ...course,
@@ -543,6 +562,7 @@ setCourses(coursesWithLessons);
             >
               View Course
             </button>
+
           </div>
         </div>
       </div>
@@ -554,148 +574,196 @@ setCourses(coursesWithLessons);
   // --------------------------------------------------
   return (
     <div className="browse-page">
-      {/* PAGE TITLE */}
-      <div className="browse-hero">
-        <h1>Browse Courses</h1>
+      <div className="browse-control-panel">
+        
+      <div className="browse-top-header">
 
-        <p>
-          Explore our courses and find the right one for your
-          learning journey.
-        </p>
+        {/* BACK BUTTON */}
+        <button
+  type="button"
+  className="browse-back-button"
+  onClick={() => navigate("/")}
+  aria-label="Go to home page"
+>
+  <ArrowLeft size={17} />
+  <span>Back</span>
+</button>
+
+        {/* HERO SECTION */}
+        
       </div>
 
-      {/* TOP CONTROLS */}
-      <div className="browse-header">
-        <div className="browse-top-controls">
-          {/* Search */}
-          <div className="search-wrapper">
-            <Search size={16} className="search-icon" />
-
-            <input
-              type="text"
-              className="browse-search"
-              placeholder="Search Courses"
-              value={searchTerm}
-              onChange={(event) =>
-                setSearchTerm(event.target.value)
-              }
-            />
-
-            {searchTerm && (
-              <button
-                type="button"
-                className="search-clear"
-                onClick={() => setSearchTerm("")}
-              >
-                <X size={14} />
-              </button>
-            )}
+        <div className="browse-control-heading">
+          <div>
+            <h2>Explore Courses</h2>
+            <p>
+              Find the perfect course for your interests.
+            </p>
           </div>
-
-          {/* Filter */}
-          <button
-            type="button"
-            className={`top-filter-button ${
-              showFilters ? "active" : ""
-            }`}
-            onClick={() => setShowFilters(!showFilters)}
-          >
-            <SlidersHorizontal size={15} />
-            <span>Filters</span>
-          </button>
-
-          {/* Sort */}
-          <select
-            className="browse-sort"
-            value={sortBy}
-            onChange={(event) =>
-              setSortBy(event.target.value)
-            }
-          >
-            <option value="default">Sort By</option>
-            <option value="rating">Highest Rating</option>
-            <option value="students">Most Students</option>
-            <option value="name">Name</option>
-          </select>
         </div>
+        
 
-        {/* FILTER DROPDOWN */}
-        {showFilters && (
-          <div className="filter-dropdown">
-            <div className="filter-dropdown-header">
-              <div>
-                <h3>Filters</h3>
-                <p>Filter courses by category</p>
-              </div>
+        <div className="browse-header">
 
-              <button
-                type="button"
-                className="filter-close"
-                onClick={() => setShowFilters(false)}
-              >
-                <X size={16} />
-              </button>
+          <div className="browse-top-controls">
+            
+
+            {/* SEARCH */}
+            <div className="search-wrapper">
+
+              <Search
+                size={18}
+                className="search-icon"
+              />
+
+              <input
+                type="text"
+                className="browse-search"
+                placeholder="Search courses, skills, instructors..."
+                value={searchTerm}
+                onChange={(event) =>
+                  setSearchTerm(event.target.value)
+                }
+              />
+
+              {searchTerm && (
+                <button
+                  type="button"
+                  className="search-clear"
+                  onClick={() => setSearchTerm("")}
+                  aria-label="Clear search"
+                >
+                  <X size={15} />
+                </button>
+              )}
+
             </div>
 
-            <div className="dropdown-filter-section">
-              <h4>Category</h4>
+            {/* FILTER */}
+            <button
+              type="button"
+              className={`top-filter-button ${
+                showFilters ? "active" : ""
+              }`}
+              onClick={() => setShowFilters(!showFilters)}
+            >
+              <SlidersHorizontal size={17} />
+              <span>Filters</span>
+            </button>
 
-              <div className="dropdown-category-options">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    type="button"
-                    className={
-                      selectedCategory === category
-                        ? "active"
-                        : ""
-                    }
-                    onClick={() =>
-                      setSelectedCategory(category)
-                    }
-                  >
-                    {category}
-                  </button>
-                ))}
-              </div>
-            </div>
+            {/* SORT */}
+            <select
+              className="browse-sort"
+              value={sortBy}
+              onChange={(event) =>
+                setSortBy(event.target.value)
+              }
+            >
+              <option value="default">Sort By</option>
+              <option value="rating">Highest Rating</option>
+              <option value="students">Most Students</option>
+              <option value="name">Name</option>
+            </select>
 
-            <div className="filter-dropdown-footer">
-              <button
-                type="button"
-                className="clear-filter-button"
-                onClick={clearFilters}
-              >
-                Clear Filters
-              </button>
-
-              <button
-                type="button"
-                className="apply-filter-button"
-                onClick={() => setShowFilters(false)}
-              >
-                Apply Filters
-              </button>
-            </div>
           </div>
-        )}
+
+          {/* FILTER DROPDOWN */}
+          {showFilters && (
+            <div className="filter-dropdown">
+
+              <div className="filter-dropdown-header">
+
+                <div>
+                  <h3>Filter Courses</h3>
+                  <p>Select a category to explore.</p>
+                </div>
+
+                <button
+                  type="button"
+                  className="filter-close"
+                  onClick={() => setShowFilters(false)}
+                  aria-label="Close filters"
+                >
+                  <X size={17} />
+                </button>
+
+              </div>
+
+              <div className="dropdown-filter-section">
+
+                <h4>Categories</h4>
+
+                <div className="dropdown-category-options">
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      type="button"
+                      className={
+                        selectedCategory === category
+                          ? "active"
+                          : ""
+                      }
+                      onClick={() =>
+                        setSelectedCategory(category)
+                      }
+                    >
+                      {category}
+                    </button>
+                  ))}
+                </div>
+
+              </div>
+
+              <div className="filter-dropdown-footer">
+
+                <button
+                  type="button"
+                  className="clear-filter-button"
+                  onClick={clearFilters}
+                >
+                  Clear Filters
+                </button>
+
+                <button
+                  type="button"
+                  className="apply-filter-button"
+                  onClick={() => setShowFilters(false)}
+                >
+                  Apply Filters
+                </button>
+
+              </div>
+            </div>
+          )}
+
+        </div>
       </div>
 
       {/* COURSE AREA */}
       <section className="browse-courses-area">
+
         {/* RECOMMENDED COURSES */}
         {!isRecommendationLoading &&
           displayRecommendedCourses.length > 0 && (
             <div className="recommended-section">
+
               <div className="recommended-header">
+
                 <div>
-                  <h2>🎯 Recommended Courses</h2>
+                  <span className="section-eyebrow">
+                    PERSONALIZED FOR YOU
+                  </span>
+
+                  <h2>
+                    <span>🎯</span> Recommended Courses
+                  </h2>
 
                   <p>
-                    Courses recommended for your learning
+                    Discover courses selected for your learning
                     journey.
                   </p>
                 </div>
+
               </div>
 
               <div className="courses-grid">
@@ -711,65 +779,97 @@ setCourses(coursesWithLessons);
                   />
                 ))}
               </div>
+
             </div>
           )}
 
-        {/* ALL COURSES TOOLBAR */}
-        <div className="courses-toolbar">
-          <span className="courses-count">
-            {filteredCourses.length}{" "}
-            {filteredCourses.length === 1
-              ? "course"
-              : "courses"}{" "}
-            found
-          </span>
-
-          {selectedCategory !== "All" && (
-            <span className="courses-count">
-              Category: {selectedCategory}
-            </span>
-          )}
-        </div>
-
         {/* ALL COURSES */}
-        {isLoading ? (
-          <div className="no-courses">
-            <h3>Loading courses...</h3>
-            <p>Please wait while courses are loading.</p>
-          </div>
-        ) : filteredCourses.length > 0 ? (
-          <div className="courses-grid">
-            {filteredCourses.map((course) => (
-              <CourseCard
-                key={
-                  course.id ||
-                  course.courseId ||
-                  course._id
-                }
-                course={course}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="no-courses">
-            <h3>No courses found</h3>
+        <div className="all-courses-section">
 
-            <p>
-              {courses.length === 0
-                ? "No published courses are available yet."
-                : "Try changing your search or category filter."}
-            </p>
+          <div className="courses-toolbar">
 
-            {courses.length > 0 && (
-              <button
-                type="button"
-                onClick={clearFilters}
-              >
-                Clear Filters
-              </button>
-            )}
+            <div>
+              <span className="section-eyebrow">
+                EXPLORE OUR LIBRARY
+              </span>
+
+              <h2>All Courses</h2>
+
+              <p>
+                Find the right course and start learning today.
+              </p>
+            </div>
+
+            <div className="courses-toolbar-info">
+
+              <span className="courses-count">
+                {filteredCourses.length}{" "}
+                {filteredCourses.length === 1
+                  ? "course"
+                  : "courses"}{" "}
+                found
+              </span>
+
+              {selectedCategory !== "All" && (
+                <span className="active-category-label">
+                  {selectedCategory}
+                </span>
+              )}
+
+            </div>
           </div>
-        )}
+
+          {/* LOADING */}
+          {isLoading ? (
+            <div className="no-courses">
+              <h3>Loading courses...</h3>
+              <p>
+                Please wait while courses are loading.
+              </p>
+            </div>
+
+          ) : filteredCourses.length > 0 ? (
+
+            <div className="courses-grid">
+              {filteredCourses.map((course) => (
+                <CourseCard
+                  key={
+                    course.id ||
+                    course.courseId ||
+                    course._id
+                  }
+                  course={course}
+                />
+              ))}
+            </div>
+
+          ) : (
+
+            <div className="no-courses">
+
+              <BookOpen size={35} />
+
+              <h3>No courses found</h3>
+
+              <p>
+                {courses.length === 0
+                  ? "No published courses are available yet."
+                  : "Try changing your search or category filter."}
+              </p>
+
+              {courses.length > 0 && (
+                <button
+                  type="button"
+                  onClick={clearFilters}
+                >
+                  Clear Filters
+                </button>
+              )}
+
+            </div>
+          )}
+
+        </div>
       </section>
 
     </div>

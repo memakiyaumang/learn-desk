@@ -1,3 +1,4 @@
+
 import React, {
     useEffect,
     useState
@@ -8,21 +9,17 @@ import {
 } from "react-router-dom";
 
 import {
-    LayoutDashboard,
-    BookOpen,
-    Users,
-    ChartNoAxesCombined,
-    ClipboardCheck,
-    Bell,
-    UserRound,
-    LogOut,
     BookMarked,
     UsersRound,
     BadgeCheck,
     LibraryBig,
     ArrowUpRight,
     MoreVertical,
-    GraduationCap
+    GraduationCap,
+    Users,
+    ChartNoAxesCombined,
+    ClipboardCheck,
+    BookOpen
 } from "lucide-react";
 
 import "../css/FacultyDashboard.css";
@@ -30,8 +27,7 @@ import "../css/FacultyDashboard.css";
 
 const FacultyDashboard = () => {
 
-    const navigate =
-        useNavigate();
+    const navigate = useNavigate();
 
 
     // ==================================================
@@ -98,6 +94,7 @@ const FacultyDashboard = () => {
         dashboardData,
         setDashboardData
     ] = useState({
+
         statistics: {
             totalCourses: 0,
             totalStudents: 0,
@@ -111,6 +108,7 @@ const FacultyDashboard = () => {
         recentStudents: [],
 
         progress: []
+
     });
 
 
@@ -204,8 +202,11 @@ const FacultyDashboard = () => {
                             draftCourses: 0,
                             totalLessons: 0
                         },
+
                         courses: [],
+
                         recentStudents: [],
+
                         progress: []
                     });
 
@@ -290,6 +291,7 @@ const FacultyDashboard = () => {
                     ) {
 
                         setDashboardData({
+
                             statistics:
                                 result.data?.statistics ||
                                 {
@@ -311,6 +313,7 @@ const FacultyDashboard = () => {
                             progress:
                                 result.data?.progress ||
                                 []
+
                         });
 
                     } else {
@@ -321,6 +324,7 @@ const FacultyDashboard = () => {
                         );
 
                         setDashboardData({
+
                             statistics: {
                                 totalCourses: 0,
                                 totalStudents: 0,
@@ -328,9 +332,13 @@ const FacultyDashboard = () => {
                                 draftCourses: 0,
                                 totalLessons: 0
                             },
+
                             courses: [],
+
                             recentStudents: [],
+
                             progress: []
+
                         });
 
                     }
@@ -343,6 +351,7 @@ const FacultyDashboard = () => {
                     );
 
                     setDashboardData({
+
                         statistics: {
                             totalCourses: 0,
                             totalStudents: 0,
@@ -350,9 +359,13 @@ const FacultyDashboard = () => {
                             draftCourses: 0,
                             totalLessons: 0
                         },
+
                         courses: [],
+
                         recentStudents: [],
+
                         progress: []
+
                     });
 
                 } finally {
@@ -367,37 +380,6 @@ const FacultyDashboard = () => {
         fetchDashboardData();
 
     }, [facultyId, navigate]);
-
-
-    // ==================================================
-    // Logout
-    // ==================================================
-    const handleLogout = () => {
-
-        sessionStorage.removeItem(
-            "facultySession"
-        );
-
-        localStorage.removeItem(
-            "facultyToken"
-        );
-
-
-        window.dispatchEvent(
-            new Event(
-                "userLoginChanged"
-            )
-        );
-
-
-        navigate(
-            "/login",
-            {
-                replace: true
-            }
-        );
-
-    };
 
 
     // ==================================================
@@ -485,14 +467,6 @@ const FacultyDashboard = () => {
     const getStudentName = (
         student
     ) => {
-
-        /*
-         * Backend now sends:
-         *
-         * studentName: student.name
-         *
-         * So studentName is checked first.
-         */
 
         if (
             student?.studentName &&
@@ -746,955 +720,765 @@ const FacultyDashboard = () => {
         };
 
 
+    // ==================================================
+    // RENDER
+    // Sidebar is now provided by FacultyLayout
+    // ==================================================
     return (
 
-        <div className="faculty-dashboard">
+        <main className="faculty-main">
 
 
-            {/* ================= SIDEBAR ================= */}
+            {/* ================= HEADER ================= */}
 
-            <aside className="faculty-sidebar">
+            <header className="faculty-header">
+
+                <div className="faculty-welcome">
+
+                    <h1>
+                        Welcome back, {facultyName}!
+                    </h1>
+
+                    <p>
+                        Here's what's happening with your courses today.
+                    </p>
+
+                </div>
 
 
-                {/* Logo */}
+                <div className="faculty-user">
 
-                <div className="faculty-logo">
+                    <div className="faculty-avatar">
 
-                    <span className="faculty-brand-mark"></span>
+                        {facultyName
+                            .charAt(0)
+                            .toUpperCase()}
 
-                    <span className="faculty-brand-text">
-                        LearnDesk
-                    </span>
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            {facultyName}
+                        </strong>
+
+                        <span>
+                            Faculty
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            {/* ================= STATISTICS ================= */}
+
+            <section className="faculty-stats">
+
+
+                {/* Total Courses */}
+
+                <div className="faculty-stat-card">
+
+                    <div className="stat-icon purple">
+
+                        <BookMarked
+                            size={24}
+                            strokeWidth={2}
+                        />
+
+                    </div>
+
+
+                    <div className="stat-content">
+
+                        <span>
+                            Total Courses
+                        </span>
+
+                        <h2>
+                            {loading
+                                ? "..."
+                                : totalCourses}
+                        </h2>
+
+                        <small>
+
+                            <ArrowUpRight
+                                size={14}
+                            />
+
+                            Your courses
+
+                        </small>
+
+                    </div>
 
                 </div>
 
 
-                {/* Navigation */}
+                {/* Total Students */}
 
-                <nav className="faculty-nav">
+                <div className="faculty-stat-card">
 
+                    <div className="stat-icon blue">
 
-                    {/* Dashboard */}
-
-                    <div
-                        className="faculty-nav-item active"
-                        onClick={() =>
-                            handleNavigation(
-                                "/faculty"
-                            )
-                        }
-                    >
-
-                        <LayoutDashboard
-                            size={20}
+                        <UsersRound
+                            size={24}
                             strokeWidth={2}
                         />
-
-                        <span>
-                            Dashboard
-                        </span>
 
                     </div>
 
 
-                    {/* My Courses */}
-
-                    <div
-                        className="faculty-nav-item"
-                        onClick={() =>
-                            handleNavigation(
-                                "/faculty/courses"
-                            )
-                        }
-                    >
-
-                        <BookOpen
-                            size={20}
-                            strokeWidth={2}
-                        />
+                    <div className="stat-content">
 
                         <span>
-                            My Courses
+                            Total Students
                         </span>
 
-                    </div>
+                        <h2>
+                            {loading
+                                ? "..."
+                                : totalStudents}
+                        </h2>
 
+                        <small>
 
-                    {/* Students */}
+                            <Users
+                                size={14}
+                            />
 
-                    <div
-                        className="faculty-nav-item"
-                        onClick={() =>
-                            handleNavigation(
-                                "/faculty/students"
-                            )
-                        }
-                    >
+                            Across your courses
 
-                        <Users
-                            size={20}
-                            strokeWidth={2}
-                        />
-
-                        <span>
-                            Students
-                        </span>
+                        </small>
 
                     </div>
-
-
-                    {/* Student Progress */}
-
-                    <div
-                        className="faculty-nav-item"
-                        onClick={() =>
-                            handleNavigation(
-                                "/faculty/progress"
-                            )
-                        }
-                    >
-
-                        <ChartNoAxesCombined
-                            size={20}
-                            strokeWidth={2}
-                        />
-
-                        <span>
-                            Student Progress
-                        </span>
-
-                    </div>
-
-
-                    {/* Quiz Management */}
-
-                    <div
-                        className="faculty-nav-item"
-                        onClick={() =>
-                            handleNavigation(
-                                "/faculty/quiz"
-                            )
-                        }
-                    >
-
-                        <ClipboardCheck
-                            size={20}
-                            strokeWidth={2}
-                        />
-
-                        <span>
-                            Quiz Management
-                        </span>
-
-                    </div>
-
-
-                    
-
-
-                    {/* Profile */}
-
-                    <div
-                        className="faculty-nav-item"
-                        onClick={() =>
-                            handleNavigation(
-                                "/faculty/profile"
-                            )
-                        }
-                    >
-
-                        <UserRound
-                            size={20}
-                            strokeWidth={2}
-                        />
-
-                        <span>
-                            Profile
-                        </span>
-
-                    </div>
-
-                </nav>
-
-
-                {/* Logout */}
-
-                <div
-                    className="faculty-nav-item faculty-logout"
-                    onClick={handleLogout}
-                >
-
-                    <LogOut
-                        size={20}
-                        strokeWidth={2}
-                    />
-
-                    <span>
-                        Logout
-                    </span>
 
                 </div>
 
-            </aside>
 
+                {/* Published Courses */}
 
-            {/* ================= MAIN CONTENT ================= */}
+                <div className="faculty-stat-card">
 
-            <main className="faculty-main">
+                    <div className="stat-icon green">
 
-
-                {/* Header */}
-
-                <header className="faculty-header">
-
-                    <div className="faculty-welcome">
-
-                        <h1>
-                            Welcome back, {facultyName}!
-                        </h1>
-
-                        <p>
-                            Here's what's happening with your courses today.
-                        </p>
+                        <BadgeCheck
+                            size={24}
+                            strokeWidth={2}
+                        />
 
                     </div>
 
 
-                    <div className="faculty-user">
+                    <div className="stat-content">
 
-                        <div className="faculty-avatar">
+                        <span>
+                            Published Courses
+                        </span>
 
-                            {facultyName
-                                .charAt(0)
-                                .toUpperCase()}
+                        <h2>
+                            {loading
+                                ? "..."
+                                : publishedCourses}
+                        </h2>
 
-                        </div>
+                        <small>
+                            {draftCourses} drafts remaining
+                        </small>
 
+                    </div>
+
+                </div>
+
+
+                {/* Total Lessons */}
+
+                <div className="faculty-stat-card">
+
+                    <div className="stat-icon orange">
+
+                        <LibraryBig
+                            size={24}
+                            strokeWidth={2}
+                        />
+
+                    </div>
+
+
+                    <div className="stat-content">
+
+                        <span>
+                            Total Lessons
+                        </span>
+
+                        <h2>
+                            {loading
+                                ? "..."
+                                : totalLessons}
+                        </h2>
+
+                        <small>
+                            Across all courses
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            {/* ================= DASHBOARD GRID ================= */}
+
+            <section className="faculty-dashboard-grid">
+
+
+                {/* Course Overview */}
+
+                <div className="faculty-card">
+
+                    <div className="faculty-card-header">
 
                         <div>
 
-                            <strong>
-                                {facultyName}
-                            </strong>
+                            <h3>
+                                Course Overview
+                            </h3>
 
-                            <span>
-                                Faculty
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </header>
-
-
-                {/* ================= STATISTICS ================= */}
-
-                <section className="faculty-stats">
-
-
-                    {/* Total Courses */}
-
-                    <div className="faculty-stat-card">
-
-                        <div className="stat-icon purple">
-
-                            <BookMarked
-                                size={24}
-                                strokeWidth={2}
-                            />
+                            <p>
+                                Your recently updated courses
+                            </p>
 
                         </div>
 
 
-                        <div className="stat-content">
-
-                            <span>
-                                Total Courses
-                            </span>
-
-                            <h2>
-                                {loading
-                                    ? "..."
-                                    : totalCourses}
-                            </h2>
-
-                            <small>
-
-                                <ArrowUpRight
-                                    size={14}
-                                />
-
-                                Your courses
-
-                            </small>
-
-                        </div>
+                        <button
+                            onClick={() =>
+                                handleNavigation(
+                                    "/faculty/courses"
+                                )
+                            }
+                        >
+                            View All
+                        </button>
 
                     </div>
 
 
-                    {/* Total Students */}
-
-                    <div className="faculty-stat-card">
-
-                        <div className="stat-icon blue">
-
-                            <UsersRound
-                                size={24}
-                                strokeWidth={2}
-                            />
-
-                        </div>
+                    <div className="course-list">
 
 
-                        <div className="stat-content">
+                        {loading ? (
 
-                            <span>
-                                Total Students
-                            </span>
-
-                            <h2>
-                                {loading
-                                    ? "..."
-                                    : totalStudents}
-                            </h2>
-
-                            <small>
-
-                                <Users
-                                    size={14}
-                                />
-
-                                Across your courses
-
-                            </small>
-
-                        </div>
-
-                    </div>
-
-
-                    {/* Published Courses */}
-
-                    <div className="faculty-stat-card">
-
-                        <div className="stat-icon green">
-
-                            <BadgeCheck
-                                size={24}
-                                strokeWidth={2}
-                            />
-
-                        </div>
-
-
-                        <div className="stat-content">
-
-                            <span>
-                                Published Courses
-                            </span>
-
-                            <h2>
-                                {loading
-                                    ? "..."
-                                    : publishedCourses}
-                            </h2>
-
-                            <small>
-                                {draftCourses} drafts remaining
-                            </small>
-
-                        </div>
-
-                    </div>
-
-
-                    {/* Total Lessons */}
-
-                    <div className="faculty-stat-card">
-
-                        <div className="stat-icon orange">
-
-                            <LibraryBig
-                                size={24}
-                                strokeWidth={2}
-                            />
-
-                        </div>
-
-
-                        <div className="stat-content">
-
-                            <span>
-                                Total Lessons
-                            </span>
-
-                            <h2>
-                                {loading
-                                    ? "..."
-                                    : totalLessons}
-                            </h2>
-
-                            <small>
-                                Across all courses
-                            </small>
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-                {/* ================= DASHBOARD GRID ================= */}
-
-                <section className="faculty-dashboard-grid">
-
-
-                    {/* Course Overview */}
-
-                    <div className="faculty-card">
-
-                        <div className="faculty-card-header">
-
-                            <div>
-
-                                <h3>
-                                    Course Overview
-                                </h3>
-
-                                <p>
-                                    Your recently updated courses
-                                </p>
-
+                            <div
+                                style={{
+                                    padding: "20px 2px",
+                                    color: "#929aaa",
+                                    fontSize: "12px"
+                                }}
+                            >
+                                Loading courses...
                             </div>
 
+                        ) : courses.length === 0 ? (
 
-                            <button
-                                onClick={() =>
-                                    handleNavigation(
-                                        "/faculty/courses"
-                                    )
-                                }
+                            <div
+                                style={{
+                                    padding: "20px 2px",
+                                    color: "#929aaa",
+                                    fontSize: "12px"
+                                }}
                             >
-                                View All
-                            </button>
-
-                        </div>
-
-
-                        <div className="course-list">
-
-
-                            {loading ? (
-
-                                <div
-                                    style={{
-                                        padding: "20px 2px",
-                                        color: "#929aaa",
-                                        fontSize: "12px"
-                                    }}
-                                >
-                                    Loading courses...
-                                </div>
-
-                            ) : courses.length === 0 ? (
-
-                                <div
-                                    style={{
-                                        padding: "20px 2px",
-                                        color: "#929aaa",
-                                        fontSize: "12px"
-                                    }}
-                                >
-                                    No courses found.
-                                </div>
-
-                            ) : (
-
-                                courses
-                                    .slice(0, 4)
-                                    .map(
-                                        (
-                                            course,
-                                            index
-                                        ) => {
-
-                                            const iconClasses = [
-                                                "purple",
-                                                "blue",
-                                                "green",
-                                                "orange"
-                                            ];
-
-
-                                            const Icon =
-                                                index === 1
-                                                    ? GraduationCap
-                                                    : index === 2
-                                                        ? ChartNoAxesCombined
-                                                        : index === 3
-                                                            ? ClipboardCheck
-                                                            : BookOpen;
-
-
-                                            return (
-
-                                                <div
-                                                    className="course-row"
-                                                    key={
-                                                        course._id
-                                                    }
-                                                >
-
-                                                    <div
-                                                        className={`course-icon ${iconClasses[index % 4]}`}
-                                                    >
-
-                                                        <Icon
-                                                            size={21}
-                                                            strokeWidth={2}
-                                                        />
-
-                                                    </div>
-
-
-                                                    <div className="course-info">
-
-                                                        <h4>
-                                                            {
-                                                                course.title
-                                                            }
-                                                        </h4>
-
-                                                        <span>
-                                                            {
-                                                                course.lessonCount
-                                                            } Lessons •{" "}
-                                                            {
-                                                                course.studentCount
-                                                            } Students
-                                                        </span>
-
-                                                    </div>
-
-
-                                                    <div
-                                                        className={`course-status ${getCourseStatusClass(course.status)}`}
-                                                    >
-                                                        {
-                                                            getCourseStatus(
-                                                                course.status
-                                                            )
-                                                        }
-                                                    </div>
-
-
-                                                    <MoreVertical
-                                                        size={19}
-                                                        className="course-menu"
-                                                    />
-
-                                                </div>
-
-                                            );
-
-                                        }
-                                    )
-
-                            )}
-
-                        </div>
-
-                    </div>
-
-
-                    {/* Recent Students */}
-
-                    <div className="faculty-card">
-
-                        <div className="faculty-card-header">
-
-                            <div>
-
-                                <h3>
-                                    Recent Students
-                                </h3>
-
-                                <p>
-                                    Recently enrolled students
-                                </p>
-
+                                No courses found.
                             </div>
 
+                        ) : (
 
-                            <button
-                                onClick={() =>
-                                    handleNavigation(
-                                        "/faculty/students"
-                                    )
-                                }
-                            >
-                                View All
-                            </button>
+                            courses
+                                .slice(0, 4)
+                                .map(
+                                    (
+                                        course,
+                                        index
+                                    ) => {
 
-                        </div>
+                                        const iconClasses = [
+                                            "purple",
+                                            "blue",
+                                            "green",
+                                            "orange"
+                                        ];
 
 
-                        <div className="student-list">
+                                        const Icon =
+                                            index === 1
+                                                ? GraduationCap
+                                                : index === 2
+                                                    ? ChartNoAxesCombined
+                                                    : index === 3
+                                                        ? ClipboardCheck
+                                                        : BookOpen;
 
 
-                            {loading ? (
-
-                                <div
-                                    style={{
-                                        padding: "20px 2px",
-                                        color: "#929aaa",
-                                        fontSize: "12px"
-                                    }}
-                                >
-                                    Loading students...
-                                </div>
-
-                            ) : recentStudents.length === 0 ? (
-
-                                <div
-                                    style={{
-                                        padding: "20px 2px",
-                                        color: "#929aaa",
-                                        fontSize: "12px"
-                                    }}
-                                >
-                                    No students enrolled yet.
-                                </div>
-
-                            ) : (
-
-                                recentStudents
-                                    .slice(0, 4)
-                                    .map(
-                                        (
-                                            student
-                                        ) => (
+                                        return (
 
                                             <div
-                                                className="student-row"
+                                                className="course-row"
                                                 key={
-                                                    student._id
+                                                    course._id
                                                 }
                                             >
 
-                                                <div className="student-avatar">
-
-                                                    {
-                                                        getStudentInitials(
-                                                            student
-                                                        )
-                                                    }
-
-                                                </div>
-
-
-                                                <div>
-
-                                                    <h4>
-                                                        {
-                                                            getStudentName(
-                                                                student
-                                                            )
-                                                        }
-                                                    </h4>
-
-                                                    <span>
-                                                        {
-                                                            student.courseName
-                                                        }
-                                                    </span>
-
-                                                </div>
-
-
-                                                <small>
-                                                    {
-                                                        getRelativeTime(
-                                                            student.createdAt
-                                                        )
-                                                    }
-                                                </small>
-
-                                            </div>
-
-                                        )
-                                    )
-
-                            )}
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-                {/* ================= BOTTOM GRID ================= */}
-
-                <section className="faculty-bottom-grid">
-
-
-                    {/* Student Progress */}
-
-                    <div className="faculty-card">
-
-                        <div className="faculty-card-header">
-
-                            <div>
-
-                                <h3>
-                                    Student Progress
-                                </h3>
-
-                                <p>
-                                    Overall course completion
-                                </p>
-
-                            </div>
-
-
-                            <button
-                                onClick={() =>
-                                    handleNavigation(
-                                        "/faculty/progress"
-                                    )
-                                }
-                            >
-                                Details
-                            </button>
-
-                        </div>
-
-
-                        <div className="progress-list">
-
-
-                            {loading ? (
-
-                                <div
-                                    style={{
-                                        padding: "20px 2px",
-                                        color: "#929aaa",
-                                        fontSize: "12px"
-                                    }}
-                                >
-                                    Loading progress...
-                                </div>
-
-                            ) : progress.length === 0 ? (
-
-                                <div
-                                    style={{
-                                        padding: "20px 2px",
-                                        color: "#929aaa",
-                                        fontSize: "12px"
-                                    }}
-                                >
-                                    No progress data available.
-                                </div>
-
-                            ) : (
-
-                                progress
-                                    .slice(0, 4)
-                                    .map(
-                                        (
-                                            item
-                                        ) => {
-
-                                            const percentage =
-                                                Math.min(
-                                                    100,
-                                                    Math.max(
-                                                        0,
-                                                        Number(
-                                                            item.progress ||
-                                                            0
-                                                        )
-                                                    )
-                                                );
-
-
-                                            return (
-
                                                 <div
-                                                    className="progress-item"
-                                                    key={
-                                                        item.courseId
-                                                    }
+                                                    className={`course-icon ${iconClasses[index % 4]}`}
                                                 >
 
-                                                    <div className="progress-header">
-
-                                                        <span>
-                                                            {
-                                                                item.courseName
-                                                            }
-                                                        </span>
-
-                                                        <strong>
-                                                            {
-                                                                percentage
-                                                            }%
-                                                        </strong>
-
-                                                    </div>
-
-
-                                                    <div className="progress-bar">
-
-                                                        <div
-                                                            className="progress-fill"
-                                                            style={{
-                                                                width: `${percentage}%`
-                                                            }}
-                                                        ></div>
-
-                                                    </div>
-
-                                                </div>
-
-                                            );
-
-                                        }
-                                    )
-
-                            )}
-
-                        </div>
-
-                    </div>
-
-
-                    {/* Recent Activity */}
-
-                    <div className="faculty-card">
-
-                        <div className="faculty-card-header">
-
-                            <div>
-
-                                <h3>
-                                    Recent Activity
-                                </h3>
-
-                                <p>
-                                    Latest updates
-                                </p>
-
-                            </div>
-
-
-                            <button
-                                onClick={() =>
-                                    handleNavigation(
-                                        "/faculty/notifications"
-                                    )
-                                }
-                            >
-                                View All
-                            </button>
-
-                        </div>
-
-
-                        <div className="activity-list">
-
-
-                            {recentStudents.length > 0 ? (
-
-                                recentStudents
-                                    .slice(0, 4)
-                                    .map(
-                                        (
-                                            student
-                                        ) => (
-
-                                            <div
-                                                className="activity-item"
-                                                key={
-                                                    `activity-${student._id}`
-                                                }
-                                            >
-
-                                                <div className="activity-icon">
-
-                                                    <Users
-                                                        size={19}
+                                                    <Icon
+                                                        size={21}
                                                         strokeWidth={2}
                                                     />
 
                                                 </div>
 
 
-                                                <div>
+                                                <div className="course-info">
 
-                                                    <p>
-
-                                                        <strong>
-                                                            {
-                                                                getStudentName(
-                                                                    student
-                                                                )
-                                                            }
-                                                        </strong>{" "}
-
-                                                        joined{" "}
-
-                                                        <strong>
-                                                            {
-                                                                student.courseName
-                                                            }
-                                                        </strong>
-
-                                                    </p>
+                                                    <h4>
+                                                        {
+                                                            course.title
+                                                        }
+                                                    </h4>
 
                                                     <span>
                                                         {
-                                                            getRelativeTime(
-                                                                student.createdAt
-                                                            )
+                                                            course.lessonCount
+                                                        } Lessons •{" "}
+                                                        {
+                                                            course.studentCount
+                                                        } Students
+                                                    </span>
+
+                                                </div>
+
+
+                                                <div
+                                                    className={`course-status ${getCourseStatusClass(course.status)}`}
+                                                >
+                                                    {
+                                                        getCourseStatus(
+                                                            course.status
+                                                        )
+                                                    }
+                                                </div>
+
+
+                                                <MoreVertical
+                                                    size={19}
+                                                    className="course-menu"
+                                                />
+
+                                            </div>
+
+                                        );
+
+                                    }
+                                )
+
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                {/* Recent Students */}
+
+                <div className="faculty-card">
+
+                    <div className="faculty-card-header">
+
+                        <div>
+
+                            <h3>
+                                Recent Students
+                            </h3>
+
+                            <p>
+                                Recently enrolled students
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            onClick={() =>
+                                handleNavigation(
+                                    "/faculty/students"
+                                )
+                            }
+                        >
+                            View All
+                        </button>
+
+                    </div>
+
+
+                    <div className="student-list">
+
+
+                        {loading ? (
+
+                            <div
+                                style={{
+                                    padding: "20px 2px",
+                                    color: "#929aaa",
+                                    fontSize: "12px"
+                                }}
+                            >
+                                Loading students...
+                            </div>
+
+                        ) : recentStudents.length === 0 ? (
+
+                            <div
+                                style={{
+                                    padding: "20px 2px",
+                                    color: "#929aaa",
+                                    fontSize: "12px"
+                                }}
+                            >
+                                No students enrolled yet.
+                            </div>
+
+                        ) : (
+
+                            recentStudents
+                                .slice(0, 4)
+                                .map(
+                                    (
+                                        student
+                                    ) => (
+
+                                        <div
+                                            className="student-row"
+                                            key={
+                                                student._id
+                                            }
+                                        >
+
+                                            <div className="student-avatar">
+
+                                                {
+                                                    getStudentInitials(
+                                                        student
+                                                    )
+                                                }
+
+                                            </div>
+
+
+                                            <div>
+
+                                                <h4>
+                                                    {
+                                                        getStudentName(
+                                                            student
+                                                        )
+                                                    }
+                                                </h4>
+
+                                                <span>
+                                                    {
+                                                        student.courseName
+                                                    }
+                                                </span>
+
+                                            </div>
+
+
+                                            <small>
+                                                {
+                                                    getRelativeTime(
+                                                        student.createdAt
+                                                    )
+                                                }
+                                            </small>
+
+                                        </div>
+
+                                    )
+                                )
+
+                        )}
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            {/* ================= BOTTOM GRID ================= */}
+
+            <section className="faculty-bottom-grid">
+
+
+                {/* Student Progress */}
+
+                <div className="faculty-card">
+
+                    <div className="faculty-card-header">
+
+                        <div>
+
+                            <h3>
+                                Student Progress
+                            </h3>
+
+                            <p>
+                                Overall course completion
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            onClick={() =>
+                                handleNavigation(
+                                    "/faculty/progress"
+                                )
+                            }
+                        >
+                            Details
+                        </button>
+
+                    </div>
+
+
+                    <div className="progress-list">
+
+
+                        {loading ? (
+
+                            <div
+                                style={{
+                                    padding: "20px 2px",
+                                    color: "#929aaa",
+                                    fontSize: "12px"
+                                }}
+                            >
+                                Loading progress...
+                            </div>
+
+                        ) : progress.length === 0 ? (
+
+                            <div
+                                style={{
+                                    padding: "20px 2px",
+                                    color: "#929aaa",
+                                    fontSize: "12px"
+                                }}
+                            >
+                                No progress data available.
+                            </div>
+
+                        ) : (
+
+                            progress
+                                .slice(0, 4)
+                                .map(
+                                    (
+                                        item
+                                    ) => {
+
+                                        const percentage =
+                                            Math.min(
+                                                100,
+                                                Math.max(
+                                                    0,
+                                                    Number(
+                                                        item.progress ||
+                                                        0
+                                                    )
+                                                )
+                                            );
+
+
+                                        return (
+
+                                            <div
+                                                className="progress-item"
+                                                key={
+                                                    item.courseId
+                                                }
+                                            >
+
+                                                <div className="progress-header">
+
+                                                    <span>
+                                                        {
+                                                            item.courseName
                                                         }
                                                     </span>
+
+                                                    <strong>
+                                                        {
+                                                            percentage
+                                                        }%
+                                                    </strong>
+
+                                                </div>
+
+
+                                                <div className="progress-bar">
+
+                                                    <div
+                                                        className="progress-fill"
+                                                        style={{
+                                                            width: `${percentage}%`
+                                                        }}
+                                                    ></div>
 
                                                 </div>
 
                                             </div>
 
-                                        )
-                                    )
+                                        );
 
-                            ) : (
+                                    }
+                                )
 
-                                <div
-                                    style={{
-                                        padding: "20px 2px",
-                                        color: "#929aaa",
-                                        fontSize: "12px"
-                                    }}
-                                >
-                                    No recent activity.
-                                </div>
-
-                            )}
-
-                        </div>
+                        )}
 
                     </div>
 
-                </section>
+                </div>
 
-            </main>
 
-        </div>
+                {/* Recent Activity */}
+
+                <div className="faculty-card">
+
+                    <div className="faculty-card-header">
+
+                        <div>
+
+                            <h3>
+                                Recent Activity
+                            </h3>
+
+                            <p>
+                                Latest updates
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            onClick={() =>
+                                handleNavigation(
+                                    "/faculty/notifications"
+                                )
+                            }
+                        >
+                            View All
+                        </button>
+
+                    </div>
+
+
+                    <div className="activity-list">
+
+
+                        {recentStudents.length > 0 ? (
+
+                            recentStudents
+                                .slice(0, 4)
+                                .map(
+                                    (
+                                        student
+                                    ) => (
+
+                                        <div
+                                            className="activity-item"
+                                            key={
+                                                `activity-${student._id}`
+                                            }
+                                        >
+
+                                            <div className="activity-icon">
+
+                                                <Users
+                                                    size={19}
+                                                    strokeWidth={2}
+                                                />
+
+                                            </div>
+
+
+                                            <div>
+
+                                                <p>
+
+                                                    <strong>
+                                                        {
+                                                            getStudentName(
+                                                                student
+                                                            )
+                                                        }
+                                                    </strong>{" "}
+
+                                                    joined{" "}
+
+                                                    <strong>
+                                                        {
+                                                            student.courseName
+                                                        }
+                                                    </strong>
+
+                                                </p>
+
+                                                <span>
+                                                    {
+                                                        getRelativeTime(
+                                                            student.createdAt
+                                                        )
+                                                    }
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+
+                                    )
+                                )
+
+                        ) : (
+
+                            <div
+                                style={{
+                                    padding: "20px 2px",
+                                    color: "#929aaa",
+                                    fontSize: "12px"
+                                }}
+                            >
+                                No recent activity.
+                            </div>
+
+                        )}
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
 
     );
 
